@@ -17,3 +17,4 @@ class BodyLabelView: UILabel {
     }
     
 }
+

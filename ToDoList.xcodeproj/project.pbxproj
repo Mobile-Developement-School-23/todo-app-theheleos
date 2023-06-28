@@ -169,7 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				7840C2542A33B66100EEA3AF /* Application */,
-				7840C25E2A33D44E00EEA3AF /* TodoItemModul */,
+				7840C25E2A33D44E00EEA3AF /* TodoItemModule */,
 				782D5ADA2A467F3E00777655 /* Extensions */,
 				7840C25F2A33D4FB00EEA3AF /* Services */,
 				7840C2552A33B67100EEA3AF /* SupportingFiles */,
@@ -222,12 +222,12 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		7840C25E2A33D44E00EEA3AF /* TodoItemModul */ = {
+		7840C25E2A33D44E00EEA3AF /* TodoItemModule */ = {
 			isa = PBXGroup;
 			children = (
 				782D5AC32A467DD000777655 /* TodoItem */,
 			);
-			path = TodoItemModul;
+			path = TodoItemModule;
 			sourceTree = "<group>";
 		};
 		7840C25F2A33D4FB00EEA3AF /* Services */ = {
