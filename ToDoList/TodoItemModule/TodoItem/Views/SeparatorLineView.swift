@@ -14,6 +14,7 @@ class SeparatorLineView: UIView {
     
     private func setupView() {
         backgroundColor = .separatorSupport
+        isHidden = true
     }
     
 }

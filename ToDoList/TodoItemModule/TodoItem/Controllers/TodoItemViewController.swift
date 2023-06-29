@@ -77,10 +77,11 @@ final class TodoItemViewController: UIViewController {
     
     // Button properties
     private lazy var deleteButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.setTitle(deleteTitle, for: .normal)
         button.setTitleColor(.redColor, for: .normal)
         button.setTitleColor(.tertiaryLabel, for: .disabled)
+        button.titleLabel?.font = UIFont.body
         button.layer.cornerRadius = cornerRadius
         button.backgroundColor = .secondaryBack
         button.addTarget(nil, action: #selector(deleteTodoItem), for: .touchUpInside)
@@ -166,19 +167,14 @@ extension TodoItemViewController {
         view.backgroundColor = .primaryBack
         
         // Navigation setup
-        title = todoItemTitle
-        navigationItem.leftBarButtonItem = .init(title: cancelTitle, style: .plain, target: nil, action: nil)
-        navigationItem.rightBarButtonItem = .init(title: saveTitle, style: .plain, target: self, action: #selector(saveTodoItem))
-        navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.tertiaryLabel!], for: .disabled)
+        
+        setupNavBar()
+        
+        
         
         // TextView setup
         textView.delegate = self
         
-        // Separator setup
-        secondSeparator.isHidden = true
-        secondSeparator.isHidden = true
-        
-        // ColorPickerView setup
         
         
     
@@ -201,8 +197,8 @@ extension TodoItemViewController {
             }
     
         } else {
-            textView.text = placeholderTitleForTextView
-            textView.textColor = .secondaryLabel
+            textView.text = Resources.Text.placeholderTitleForTextView
+            textView.textColor = .tertiaryLabel
             
             importanceSegmentControl.selectedSegmentIndex = 1
         
@@ -214,6 +210,35 @@ extension TodoItemViewController {
         addSubViews()
         setupLayout()
     }
+    
+    
+    private func setupNavBar() {
+        title = "Дело"
+        
+        self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.headline ?? .systemFont(ofSize: 17),  NSAttributedString.Key.foregroundColor: UIColor.primaryLabel ?? .black]
+        
+        addNavBarButton(location: .leftElement)
+        addNavBarButton(location: .rightElement)
+        navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.tertiaryLabel!], for: .disabled)
+        }
+        
+        private func addNavBarButton(location: NavBarElements) {
+            let button = UIButton(type: .system)
+            button.setTitleColor(.blueColor, for: .normal)
+            
+            switch location {
+            case .leftElement:
+                button.setTitle("Отменить", for: .normal)
+                button.titleLabel?.font = UIFont.body
+                navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
+            case .rightElement:
+                button.setTitle("Сохранить", for: .normal)
+                button.setTitleColor(.tertiaryLabel, for: .disabled)
+                button.titleLabel?.font = UIFont.headline
+                button.addTarget(self, action: #selector(saveTodoItem), for: .touchUpInside)
+                navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
+            }
+        }
     
     // MARK: - Obj-c methods
     
@@ -269,8 +294,8 @@ extension TodoItemViewController {
     
         currentTodoItem = nil
         
-        textView.text = placeholderTitleForTextView
-        textView.textColor = .secondaryLabel
+        textView.text = Resources.Text.placeholderTitleForTextView
+        textView.textColor = .tertiaryLabel
         importanceSegmentControl.selectedSegmentIndex = 1
         
         dateDeadlineButton.isHidden = true
@@ -463,7 +488,7 @@ extension TodoItemViewController {
 
 extension TodoItemViewController: UITextViewDelegate {
     public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        if textView.text == placeholderTitleForTextView {
+        if textView.text == Resources.Text.placeholderTitleForTextView && textView.textColor == .tertiaryLabel {
             textView.text = ""
             textView.textColor = .primaryLabel
         }
@@ -472,14 +497,14 @@ extension TodoItemViewController: UITextViewDelegate {
     
     public func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         if textView.text == "" {
-            textView.text = placeholderTitleForTextView
+            textView.text = Resources.Text.placeholderTitleForTextView
             textView.textColor = .tertiaryLabel
         }
         return true
     }
     
     public func textViewDidChange(_ textView: UITextView) {
-        if textView.text != "" && textView.text != placeholderTitleForTextView {
+        if textView.text != "" && textView.textColor != .tertiaryLabel {
             navigationItem.rightBarButtonItem?.isEnabled = true
         } else {
             navigationItem.rightBarButtonItem?.isEnabled = false
@@ -503,7 +528,6 @@ private let edgeSize: CGFloat = 16
 private let verticalStackEdgeSize: CGFloat = 12.5
 private let settingsStackViewSpacing: CGFloat = 11
 
-private var placeholderTitleForTextView = "Что надо сделать?"
 
 private let todoItemTitle = "Дело"
 
