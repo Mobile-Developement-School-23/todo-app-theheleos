@@ -32,6 +32,9 @@
 		B3765EA02A4DFCC400FE50D1 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765E9F2A4DFCC400FE50D1 /* Resources.swift */; };
 		B3765EA22A4E0D8200FE50D1 /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765EA12A4E0D8200FE50D1 /* UILabel+Extensions.swift */; };
 		B3765EA42A4E0F2A00FE50D1 /* NavBarElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765EA32A4E0F2A00FE50D1 /* NavBarElements.swift */; };
+		B3765EAA2A4E147500FE50D1 /* TodoItemSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765EA92A4E147500FE50D1 /* TodoItemSettingsView.swift */; };
+		B3765EAE2A4E25A400FE50D1 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765EAD2A4E25A400FE50D1 /* TestViewController.swift */; };
+		B3765EB52A4E3BBC00FE50D1 /* DeleteButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765EB42A4E3BBC00FE50D1 /* DeleteButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +84,9 @@
 		B3765E9F2A4DFCC400FE50D1 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		B3765EA12A4E0D8200FE50D1 /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		B3765EA32A4E0F2A00FE50D1 /* NavBarElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarElements.swift; sourceTree = "<group>"; };
+		B3765EA92A4E147500FE50D1 /* TodoItemSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemSettingsView.swift; sourceTree = "<group>"; };
+		B3765EAD2A4E25A400FE50D1 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		B3765EB42A4E3BBC00FE50D1 /* DeleteButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +130,8 @@
 				782D5AC92A467E6E00777655 /* BodyLabelView.swift */,
 				782D5ACA2A467E6E00777655 /* TextView.swift */,
 				782D5ACC2A467E6E00777655 /* SeparatorLineView.swift */,
+				B3765EA92A4E147500FE50D1 /* TodoItemSettingsView.swift */,
+				B3765EB42A4E3BBC00FE50D1 /* DeleteButtonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -181,6 +189,7 @@
 				7840C25F2A33D4FB00EEA3AF /* Services */,
 				7840C2552A33B67100EEA3AF /* SupportingFiles */,
 				B3765E9F2A4DFCC400FE50D1 /* Resources.swift */,
+				B3765EAD2A4E25A400FE50D1 /* TestViewController.swift */,
 			);
 			path = ToDoList;
 			sourceTree = "<group>";
@@ -405,8 +414,11 @@
 				782D5ACD2A467E6E00777655 /* BodyLabelView.swift in Sources */,
 				B3765EA02A4DFCC400FE50D1 /* Resources.swift in Sources */,
 				782D5AE42A467F3E00777655 /* UIFont+Extensions.swift in Sources */,
+				B3765EAA2A4E147500FE50D1 /* TodoItemSettingsView.swift in Sources */,
 				782D5AE22A467F3E00777655 /* UIImage+Extensions.swift in Sources */,
 				7840C2272A33B4EC00EEA3AF /* SceneDelegate.swift in Sources */,
+				B3765EB52A4E3BBC00FE50D1 /* DeleteButtonView.swift in Sources */,
+				B3765EAE2A4E25A400FE50D1 /* TestViewController.swift in Sources */,
 				7840C2612A33D50900EEA3AF /* FileCache.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -2,9 +2,11 @@ import UIKit
 
 class SeparatorLineView: UIView {
 
-    init() {
+    init(isHidden: Bool) {
         super.init(frame: .zero)
+        
         setupView()
+        self.isHidden = isHidden
     }
     
     @available(*, unavailable)
@@ -14,7 +16,7 @@ class SeparatorLineView: UIView {
     
     private func setupView() {
         backgroundColor = .separatorSupport
-        isHidden = true
+        translatesAutoresizingMaskIntoConstraints = false
     }
     
 }

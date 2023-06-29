@@ -65,7 +65,7 @@ final class TodoItemViewController: UIViewController {
     }()
 
     // Switch properties
-    private lazy var dateDeadLineSwtich: UISwitch = {
+    private lazy var deadLineSwtich: UISwitch = {
         let switcher = UISwitch()
         switcher.onTintColor = .greenColor
         switcher.layer.cornerRadius = cornerRadius
@@ -112,8 +112,8 @@ final class TodoItemViewController: UIViewController {
     }()
     
     // SeparatorViews properties
-    private lazy var separator = SeparatorLineView()
-    private lazy var secondSeparator = SeparatorLineView()
+    private lazy var firstSeparator = SeparatorLineView(isHidden: false)
+    private lazy var secondSeparator = SeparatorLineView(isHidden: true)
 
     private let fileCache = FileCache()
     private var currentTodoItem: TodoItem? = nil
@@ -190,7 +190,7 @@ extension TodoItemViewController {
             if let dateDeadline = currentTodoItem.dateDeadline {
                 dateDeadlineButton.setAttributedTitle(NSAttributedString(string: dateDeadline.toString(), attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .footnote)]), for: .normal)
                 calendarView.date = dateDeadline
-                dateDeadLineSwtich.isOn = true
+                deadLineSwtich.isOn = true
                 dateDeadlineButton.isHidden = false
             } else {
                 dateDeadlineButton.isHidden = true
@@ -215,11 +215,13 @@ extension TodoItemViewController {
     private func setupNavBar() {
         title = "Дело"
         
-        self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.headline ?? .systemFont(ofSize: 17),  NSAttributedString.Key.foregroundColor: UIColor.primaryLabel ?? .black]
+        
         
         addNavBarButton(location: .leftElement)
         addNavBarButton(location: .rightElement)
         navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.tertiaryLabel!], for: .disabled)
+        
+        navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.headline ?? .systemFont(ofSize: 17),  NSAttributedString.Key.foregroundColor: UIColor.primaryLabel ?? .black]
         }
         
         private func addNavBarButton(location: NavBarElements) {
@@ -245,7 +247,7 @@ extension TodoItemViewController {
     @objc func saveTodoItem(sender: UIBarButtonItem) {
         var dateDeadline: Date?
         let importance = importanceByIndex(importanceSegmentControl.selectedSegmentIndex)
-        if dateDeadLineSwtich.isOn == true {
+        if deadLineSwtich.isOn == true {
             dateDeadline = calendarView.date
         }
         
@@ -302,7 +304,7 @@ extension TodoItemViewController {
         calendarView.isHidden = true
         secondSeparator.isHidden = true
         secondSeparator.isHidden = true
-        dateDeadLineSwtich.isOn = false
+        deadLineSwtich.isOn = false
         deleteButton.isEnabled = false
         navigationItem.rightBarButtonItem?.isEnabled = false
         
@@ -341,7 +343,7 @@ extension TodoItemViewController {
         scrollView.addSubview(deleteButton)
         
         settingsStackView.addArrangedSubview(importanceStackView)
-        settingsStackView.addArrangedSubview(separator)
+        settingsStackView.addArrangedSubview(firstSeparator)
         settingsStackView.addArrangedSubview(secondSeparator)
         settingsStackView.addArrangedSubview(deadlineStackView)
         settingsStackView.addArrangedSubview(secondSeparator)
@@ -351,7 +353,7 @@ extension TodoItemViewController {
         importanceStackView.addArrangedSubview(importanceSegmentControl)
         
         deadlineStackView.addArrangedSubview(deadlineVerticalSubStack)
-        deadlineStackView.addArrangedSubview(dateDeadLineSwtich)
+        deadlineStackView.addArrangedSubview(deadLineSwtich)
         
         deadlineVerticalSubStack.addArrangedSubview(deadlineLabel)
         deadlineVerticalSubStack.addArrangedSubview(dateDeadlineButton)
@@ -389,8 +391,8 @@ extension TodoItemViewController {
         settingsStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -edgeSize).isActive = true
         
         // Separators anchors
-        separator.translatesAutoresizingMaskIntoConstraints = false
-        separator.heightAnchor.constraint(equalToConstant: separatorHeight).isActive = true
+        firstSeparator.translatesAutoresizingMaskIntoConstraints = false
+        firstSeparator.heightAnchor.constraint(equalToConstant: separatorHeight).isActive = true
         
         secondSeparator.translatesAutoresizingMaskIntoConstraints = false
         secondSeparator.heightAnchor.constraint(equalToConstant: separatorHeight).isActive = true
@@ -402,7 +404,6 @@ extension TodoItemViewController {
         importanceSegmentControl.translatesAutoresizingMaskIntoConstraints = false
         
         importanceSegmentControl.widthAnchor.constraint(equalToConstant: importanceSegmentControlWidth).isActive = true
-        importanceSegmentControl.heightAnchor.constraint(equalToConstant: importanceSegmentControlHeight).isActive = true
         
         // Deletebutton anchors
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
@@ -514,14 +515,14 @@ extension TodoItemViewController: UITextViewDelegate {
 
 
 
-private let selectedColorButtonSizes: CGFloat = 36
-private let importanceSegmentControlHeight: CGFloat = 36
+
+
 private let separatorHeight: CGFloat = 1
 private let textViewHeight: CGFloat = 120
 private let dateDeadlineButtonHeight: CGFloat = 18
 private let deleteButtonHeight: CGFloat = 56
 
-private let importanceSegmentControlWidth: CGFloat = 156
+private let importanceSegmentControlWidth: CGFloat = 150
 
 private let cornerRadius: CGFloat = 16
 private let edgeSize: CGFloat = 16
@@ -537,7 +538,7 @@ private let saveTitle = "Сохранить"
 
 private let doBeforeTitle = "Cделать до"
 private let importanceTitle = "Важность"
-private let colorTextTitle = "Цвет текста"
+
 
 private let mainDataBaseFileName = "2"
 

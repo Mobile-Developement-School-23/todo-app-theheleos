@@ -31,12 +31,34 @@ private var items: [Any] = [UIImage.lowImportanceIcon, NSAttributedString(string
 
 
 enum Resources {
+    
+    enum Constants {
+        static let edgeSize: CGFloat = 16
+        static let cornerRadius: CGFloat = 16
+        static let textViewHeight: CGFloat = 120
+        static let verticalStackEdgeSize: CGFloat = 12.5
+        static let settingsStackViewSpacing: CGFloat = 11
+        static let importanceSegmentControlWidth: CGFloat = 150
+        static let separatorHeight: CGFloat = 1
+        static let dateDeadlineButtonHeight: CGFloat = 18
+        
+    }
     enum Text {
+        static let importanceSegmentedControlText = "нет"
         static let placeholderTitleForTextView = "Что надо сделать?"
+        static let deleteTitle = "Удалить"
     }
     
     
     enum Colors {
-        
+        static let disableLabel = UIColor(named: "DisableLabel")
+        static let primaryLabel = UIColor(named: "PrimaryLabel")
+        static let secondaryLabel = UIColor(named: "SecondaryLabel")
+        static let tertiaryLabel = UIColor(named: "TertiaryLabel")
+    }
+    
+    enum Images {
+        static var lowImportanceIcon = UIImage(named: "LowImportance") ?? UIImage()
+        static var highImportanceIcon = UIImage(named: "HighImportance") ?? UIImage()
     }
 }
