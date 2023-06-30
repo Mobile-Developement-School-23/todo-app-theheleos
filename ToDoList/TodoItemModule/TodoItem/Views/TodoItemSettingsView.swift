@@ -138,11 +138,9 @@ class TodoItemSettingsView: UIView {
     }
     
     private func setupLayout() {
-        layer.cornerRadius = 16
+        layer.cornerRadius = Resources.Constants.cornerRadius
         layer.backgroundColor = Resources.Colors.secondaryBack?.cgColor
         translatesAutoresizingMaskIntoConstraints = false
-        
-        
         
         addSubview(settingsStackView)
         
@@ -166,15 +164,12 @@ class TodoItemSettingsView: UIView {
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            
-            
             settingsStackView.topAnchor.constraint(equalTo: topAnchor),
             settingsStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             settingsStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             settingsStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
             firstSeparator.heightAnchor.constraint(equalToConstant: Resources.Constants.separatorHeight),
-            
             
             secondSeparator.heightAnchor.constraint(equalToConstant: Resources.Constants.separatorHeight),
 
