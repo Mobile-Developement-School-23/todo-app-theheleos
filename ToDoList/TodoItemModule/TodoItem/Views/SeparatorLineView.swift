@@ -15,7 +15,7 @@ class SeparatorLineView: UIView {
     }
     
     private func setupView() {
-        backgroundColor = .separatorSupport
+        backgroundColor = Resources.Colors.separatorSupport
         translatesAutoresizingMaskIntoConstraints = false
     }
     

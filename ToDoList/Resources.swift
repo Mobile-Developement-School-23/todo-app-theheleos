@@ -1,35 +1,5 @@
 import UIKit
 
-private let selectedColorButtonSizes: CGFloat = 36
-private let importanceSegmentControlHeight: CGFloat = 36
-private let separatorHeight: CGFloat = 1
-private let textViewHeight: CGFloat = 120
-private let dateDeadlineButtonHeight: CGFloat = 18
-private let deleteButtonHeight: CGFloat = 56
-
-private let importanceSegmentControlWidth: CGFloat = 156
-
-private let cornerRadius: CGFloat = 16
-private let edgeSize: CGFloat = 16
-private let verticalStackEdgeSize: CGFloat = 12.5
-private let settingsStackViewSpacing: CGFloat = 11
-
-
-private let todoItemTitle = "Дело"
-
-private let deleteTitle = "Удалить"
-private let cancelTitle = "Отменить"
-private let saveTitle = "Сохранить"
-
-private let doBeforeTitle = "Cделать до"
-private let importanceTitle = "Важность"
-private let colorTextTitle = "Цвет текста"
-
-private let mainDataBaseFileName = "2"
-
-private var items: [Any] = [UIImage.lowImportanceIcon, NSAttributedString(string: "нет", attributes: [NSAttributedString.Key.font: UIFont.subhead!]), UIImage.highImportanceIcon]
-
-
 enum Resources {
     
     enum Constants {
@@ -44,17 +14,43 @@ enum Resources {
         
     }
     enum Text {
+        static let todoItemNavBarTitle = "Дело"
+        static let cancelButtonTitle = "Отменить"
+        static let saveButtonTitle = "Сохранить"
+        static let importanceLabelTitle = "Важность"
         static let importanceSegmentedControlText = "нет"
+        static let deadlineLabelTitle = "Сделать до"
         static let placeholderTitleForTextView = "Что надо сделать?"
         static let deleteTitle = "Удалить"
+        static let mainDataBaseFileName = "todoList"
     }
     
-    
     enum Colors {
+        // Support
+        static let separatorSupport = UIColor(named: "SeparatorSupport")
+        static let overlaySupport = UIColor(named: "OverlaySupport")
+        static let NavBarBlurSupport = UIColor(named: "NavBarBlurSupport")
+        
+        // Label
         static let disableLabel = UIColor(named: "DisableLabel")
         static let primaryLabel = UIColor(named: "PrimaryLabel")
         static let secondaryLabel = UIColor(named: "SecondaryLabel")
         static let tertiaryLabel = UIColor(named: "TertiaryLabel")
+        
+        // Color
+        static let blueColor = UIColor(named: "Blue")
+        static let grayColor = UIColor(named: "GrayColor")
+        static let grayLightColor = UIColor(named: "GrayLightColor")
+        static let greenColor = UIColor(named: "Green")
+        static let redColor = UIColor(named: "Red")
+        static let whiteColor = UIColor(named: "WhiteColor")
+        
+        // Back
+        static let elevatedBack = UIColor(named: "ElevatedBack")
+        static let iosPrimaryBack = UIColor(named: "iOSPrimaryBack")
+        static let primaryBack = UIColor(named: "PrimaryBack")
+        static let secondaryBack = UIColor(named: "SecondaryBack")
+        static let color = ""
     }
     
     enum Images {

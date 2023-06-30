@@ -2,11 +2,11 @@ import UIKit
 
 class DeleteButtonView: UIView {
     
-    private let deleteButton: UIButton = {
+    let deleteButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(Resources.Text.deleteTitle, for: .normal)
-        button.setTitleColor(.redColor, for: .normal)
-        button.setTitleColor(.tertiaryLabel, for: .disabled)
+        button.setTitleColor(Resources.Colors.redColor, for: .normal)
+        button.setTitleColor(Resources.Colors.tertiaryLabel, for: .disabled)
         button.titleLabel?.font = UIFont.body
         button.addTarget(
             nil,
@@ -28,11 +28,15 @@ class DeleteButtonView: UIView {
     }
     
     private func setupLayout() {
-        backgroundColor = .secondaryBack
+        backgroundColor = Resources.Colors.secondaryBack
         layer.cornerRadius = Resources.Constants.cornerRadius
         translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(deleteButton)
+    }
+    
+    func deleteButtonIsEnabled(enable: Bool) {
+        deleteButton.isEnabled = enable
     }
     
     private func setConstraints() {

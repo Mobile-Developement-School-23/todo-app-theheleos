@@ -3,12 +3,12 @@ import UIKit
 class TodoItemSettingsView: UIView {
     
     private let importanceLabel = UILabel(
-        text: "Важность",
+        text: Resources.Text.importanceLabelTitle,
         textColor: Resources.Colors.primaryLabel,
         font: .body
     )
        
-    private let importanceSegmentControl: UISegmentedControl = {
+    let importanceSegmentControl: UISegmentedControl = {
         let items: [Any] = [
             Resources.Images.lowImportanceIcon,
             NSAttributedString(
@@ -22,8 +22,8 @@ class TodoItemSettingsView: UIView {
         
         let segmentedControl = UISegmentedControl(items: items)
         segmentedControl.selectedSegmentIndex = 1
-        segmentedControl.selectedSegmentTintColor = .elevatedBack
-        segmentedControl.backgroundColor = .overlaySupport
+        segmentedControl.selectedSegmentTintColor = Resources.Colors.elevatedBack
+        segmentedControl.backgroundColor = Resources.Colors.overlaySupport
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         return segmentedControl
     }()
@@ -39,20 +39,20 @@ class TodoItemSettingsView: UIView {
     private let firstSeparator = SeparatorLineView(isHidden: false)
     
     private let deadlineLabel = UILabel(
-        text: "Сделать до",
+        text: Resources.Text.deadlineLabelTitle,
         textColor: Resources.Colors.primaryLabel,
         font: .body
     )
     
-    private let deadLineSwtich: UISwitch = {
+    let deadLineSwtich: UISwitch = {
         let switcher = UISwitch()
-        switcher.onTintColor = .greenColor
+        switcher.onTintColor = Resources.Colors.greenColor
         switcher.layer.cornerRadius = Resources.Constants.cornerRadius
         switcher.layer.masksToBounds = true
-        switcher.backgroundColor = .overlaySupport
+        switcher.backgroundColor = Resources.Colors.overlaySupport
         switcher.addTarget(
             nil,
-            action: #selector(TestViewController.switchChanged),
+            action: #selector(TodoItemViewController.switchChanged),
             for: .valueChanged
         )
         switcher.translatesAutoresizingMaskIntoConstraints = false
@@ -69,12 +69,12 @@ class TodoItemSettingsView: UIView {
     
     let dateDeadlineButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitleColor(.blueColor, for: .normal)
+        button.setTitleColor(Resources.Colors.blueColor, for: .normal)
         button.contentHorizontalAlignment = .left
         button.isHidden = true
         button.addTarget(
             nil,
-            action: #selector(TestViewController.dateDeadlineButtonTapped),
+            action: #selector(TodoItemViewController.dateDeadlineButtonTapped),
             for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -92,7 +92,7 @@ class TodoItemSettingsView: UIView {
         datePicker.preferredDatePickerStyle = .inline
         datePicker.addTarget(
             nil,
-            action: #selector(TestViewController.datePickerSelected),
+            action: #selector(TodoItemViewController.datePickerSelected),
             for: .valueChanged)
         datePicker.isHidden = true
         datePicker.translatesAutoresizingMaskIntoConstraints = false
@@ -110,7 +110,7 @@ class TodoItemSettingsView: UIView {
     
     private lazy var settingsStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.backgroundColor = .secondaryBack
+        stackView.backgroundColor = Resources.Colors.secondaryBack
         stackView.layer.cornerRadius = Resources.Constants.cornerRadius
         stackView.axis = .vertical
         stackView.spacing = Resources.Constants.settingsStackViewSpacing
@@ -137,14 +137,9 @@ class TodoItemSettingsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func getImportanceSegmentedControlSelectedIndex() -> Int {
-        importanceSegmentControl.selectedSegmentIndex
-    }
-    
-    
     private func setupLayout() {
         layer.cornerRadius = 16
-        layer.backgroundColor = UIColor.secondaryBack?.cgColor
+        layer.backgroundColor = Resources.Colors.secondaryBack?.cgColor
         translatesAutoresizingMaskIntoConstraints = false
         
         

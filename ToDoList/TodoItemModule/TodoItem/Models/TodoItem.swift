@@ -138,7 +138,6 @@ private enum JSONKeys: String {
     case isDone = "is_done"
     case dateСreation = "date_creation"
     case dateChanging = "date_changing"
-    case hexColor = "hex_color"
 }
 
 private enum CSVSeparator: String {

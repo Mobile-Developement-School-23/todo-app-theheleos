@@ -1,122 +1,16 @@
+
+
 import UIKit
 
-final class TodoItemViewController: UIViewController {
-    // MARK: - Properties
-
-    private lazy var textView = TextView()
-    private lazy var scrollView = UIScrollView()
-
-    // StackView properties
-    private lazy var settingsStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.backgroundColor = .secondaryBack
-        stackView.layer.cornerRadius = cornerRadius
-        stackView.axis = .vertical
-        stackView.spacing = settingsStackViewSpacing
-        stackView.distribution = .fillProportionally
-        stackView.layoutMargins = UIEdgeInsets(top: verticalStackEdgeSize, left: edgeSize, bottom: verticalStackEdgeSize, right: edgeSize)
-        stackView.isLayoutMarginsRelativeArrangement = true
-        return stackView
-    }()
+class TodoItemViewController: UIViewController {
     
-    private lazy var deadlineVerticalSubStack: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 0
-        stackView.alignment = .leading
-        return stackView
-    }()
+    private let scrollView = UIScrollView()
+    private let textView = TextView()
+    private let todoItemSettingsView = TodoItemSettingsView()
+    private let deleteButtonView = DeleteButtonView()
     
-    private lazy var importanceStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = edgeSize
-        stackView.alignment = .center
-        return stackView
-    }()
-    
-    private lazy var deadlineStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = edgeSize
-        stackView.alignment = .center
-        return stackView
-    }()
-    
-    // Label properties
-    private lazy var importanceLabel: BodyLabelView = {
-        let label = BodyLabelView()
-        label.text = importanceTitle
-        return label
-    }()
-    
-    private lazy var deadlineLabel: BodyLabelView = {
-        let label = BodyLabelView()
-        label.text = doBeforeTitle
-        return label
-    }()
-    
-    // SegmentControl properties
-    private lazy var importanceSegmentControl: UISegmentedControl = {
-        let segmentControl = UISegmentedControl(items: items)
-        segmentControl.selectedSegmentTintColor = .elevatedBack
-        segmentControl.backgroundColor = .overlaySupport
-        return segmentControl
-    }()
-
-    // Switch properties
-    private lazy var deadLineSwtich: UISwitch = {
-        let switcher = UISwitch()
-        switcher.onTintColor = .greenColor
-        switcher.layer.cornerRadius = cornerRadius
-        switcher.layer.masksToBounds = true
-        switcher.backgroundColor = .overlaySupport
-        switcher.addTarget(nil, action: #selector(switchChanged), for: .valueChanged)
-        return switcher
-    }()
-    
-    // Button properties
-    private lazy var deleteButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle(deleteTitle, for: .normal)
-        button.setTitleColor(.redColor, for: .normal)
-        button.setTitleColor(.tertiaryLabel, for: .disabled)
-        button.titleLabel?.font = UIFont.body
-        button.layer.cornerRadius = cornerRadius
-        button.backgroundColor = .secondaryBack
-        button.addTarget(nil, action: #selector(deleteTodoItem), for: .touchUpInside)
-        return button
-    }()
-    
-    private lazy var dateDeadlineButton: UIButton = {
-        let button = UIButton()
-        button.setTitleColor(.blueColor, for: .normal)
-        button.contentHorizontalAlignment = .left
-        button.addTarget(nil, action: #selector(dateDeadlineButtonTapped), for: .touchUpInside)
-        return button
-    }()
-    
-    // Calendar properties
-    private lazy var calendarView: UIDatePicker = {
-        let datePicker = UIDatePicker()
-
-        datePicker.locale = Locale(identifier: "ru_RU")
-        datePicker.calendar.firstWeekday = 2
-        datePicker.minimumDate = Date()
-        datePicker.datePickerMode = .date
-        datePicker.preferredDatePickerStyle = .inline
-
-        datePicker.addTarget(nil, action: #selector(datePickerSelected), for: .valueChanged)
-        datePicker.isHidden = true
-        return datePicker
-    }()
-    
-    // SeparatorViews properties
-    private lazy var firstSeparator = SeparatorLineView(isHidden: false)
-    private lazy var secondSeparator = SeparatorLineView(isHidden: true)
-
-    private let fileCache = FileCache()
     private var currentTodoItem: TodoItem? = nil
+    private let fileCache = FileCache()
     
     // MARK: - Initializators
 
@@ -133,26 +27,80 @@ final class TodoItemViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Override methods
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        makeLoad()
-        setUpView()
+        
+        setupLayout()
+        setConstraints()
+        setDelegates()
     }
-}
-
-// MARK: - Extensions
-
-extension TodoItemViewController {
+    
+// MARK: - Setup Layout
+    
+    private func setupLayout() {
+        view.backgroundColor = Resources.Colors.primaryBack
+        
+        setupNavBar()
+        
+        view.addSubview(scrollView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(textView)
+        scrollView.addSubview(todoItemSettingsView)
+        scrollView.addSubview(deleteButtonView)
+        
+        makeLoad()
+        setValues()
+        
+        hideKeyboardWhenTappedAround()
+    }
+    
+    private func setupNavBar() {
+        title = Resources.Text.todoItemNavBarTitle
+        
+        addNavBarButton(location: .leftElement)
+        addNavBarButton(location: .rightElement)
+        navigationItem.rightBarButtonItem?.setTitleTextAttributes(
+            [NSAttributedString.Key.foregroundColor: Resources.Colors.tertiaryLabel!],
+            for: .disabled
+        )
+        
+        navigationController!.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.font: UIFont.headline ?? .systemFont(ofSize: 17),
+            NSAttributedString.Key.foregroundColor: Resources.Colors.primaryLabel ?? .black
+        ]
+    }
+        
+        private func addNavBarButton(location: NavBarElements) {
+            let button = UIButton(type: .system)
+            button.setTitleColor(Resources.Colors.blueColor, for: .normal)
+            
+            switch location {
+            case .leftElement:
+                button.setTitle(Resources.Text.cancelButtonTitle, for: .normal)
+                button.titleLabel?.font = UIFont.body
+                navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
+            case .rightElement:
+                button.setTitle(Resources.Text.saveButtonTitle, for: .normal)
+                button.setTitleColor(Resources.Colors.tertiaryLabel, for: .disabled)
+                button.titleLabel?.font = UIFont.headline
+                button.addTarget(self, action: #selector(saveTodoItem), for: .touchUpInside)
+                navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
+            }
+        }
+    
+    //MARK: - Set Delegates
+    
+    private func setDelegates() {
+        textView.delegate = self
+    }
+    
     // MARK: - Load saved items
 
-    // Delete when we will make rootViewController
     private func makeLoad() {
         do {
-            try fileCache.loadFromJSON(file: mainDataBaseFileName)
+            try fileCache.loadFromJSON(file: Resources.Text.mainDataBaseFileName)
         } catch {
-            print("Ошибочка при загрузке данных")
+            print("Данных не обнаружено")
         }
         
         if !fileCache.todoItems.isEmpty {
@@ -160,264 +108,32 @@ extension TodoItemViewController {
         }
     }
     
-    // MARK: - Settings views
-
-    private func setUpView() {
-        // Root view setup
-        view.backgroundColor = .primaryBack
-        
-        // Navigation setup
-        
-        setupNavBar()
-        
-        
-        
-        // TextView setup
-        textView.delegate = self
-        
-        
-        
-    
-        calendarView.isHidden = true
-        
-        // TodoItem setup
+    private func setValues() {
         if let currentTodoItem = currentTodoItem {
            
             textView.text = currentTodoItem.text
-            textView.textColor = .primaryLabel
-            importanceSegmentControl.selectedSegmentIndex = indexByImportance(currentTodoItem.importance)
+            textView.textColor = Resources.Colors.primaryLabel
+            todoItemSettingsView.importanceSegmentControl.selectedSegmentIndex = indexByImportance(currentTodoItem.importance)
             
             if let dateDeadline = currentTodoItem.dateDeadline {
-                dateDeadlineButton.setAttributedTitle(NSAttributedString(string: dateDeadline.toString(), attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .footnote)]), for: .normal)
-                calendarView.date = dateDeadline
-                deadLineSwtich.isOn = true
-                dateDeadlineButton.isHidden = false
+                todoItemSettingsView.dateDeadlineButton.setAttributedTitle(NSAttributedString(string: dateDeadline.toString(), attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .footnote)]), for: .normal)
+                todoItemSettingsView.calendarView.date = dateDeadline
+                todoItemSettingsView.deadLineSwtich.isOn = true
+                todoItemSettingsView.dateDeadlineButton.isHidden = false
             } else {
-                dateDeadlineButton.isHidden = true
+                todoItemSettingsView.dateDeadlineButton.isHidden = true
             }
     
         } else {
             textView.text = Resources.Text.placeholderTitleForTextView
-            textView.textColor = .tertiaryLabel
+            textView.textColor = Resources.Colors.tertiaryLabel
             
-            importanceSegmentControl.selectedSegmentIndex = 1
+            todoItemSettingsView.importanceSegmentControl.selectedSegmentIndex = 1
         
-            dateDeadlineButton.isHidden = true
-            deleteButton.isEnabled = false
+            todoItemSettingsView.dateDeadlineButton.isHidden = true
+            deleteButtonView.deleteButton.isEnabled = false
             navigationItem.rightBarButtonItem?.isEnabled = false
         }
-                
-        addSubViews()
-        setupLayout()
-    }
-    
-    
-    private func setupNavBar() {
-        title = "Дело"
-        
-        
-        
-        addNavBarButton(location: .leftElement)
-        addNavBarButton(location: .rightElement)
-        navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.tertiaryLabel!], for: .disabled)
-        
-        navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.headline ?? .systemFont(ofSize: 17),  NSAttributedString.Key.foregroundColor: UIColor.primaryLabel ?? .black]
-        }
-        
-        private func addNavBarButton(location: NavBarElements) {
-            let button = UIButton(type: .system)
-            button.setTitleColor(.blueColor, for: .normal)
-            
-            switch location {
-            case .leftElement:
-                button.setTitle("Отменить", for: .normal)
-                button.titleLabel?.font = UIFont.body
-                navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
-            case .rightElement:
-                button.setTitle("Сохранить", for: .normal)
-                button.setTitleColor(.tertiaryLabel, for: .disabled)
-                button.titleLabel?.font = UIFont.headline
-                button.addTarget(self, action: #selector(saveTodoItem), for: .touchUpInside)
-                navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
-            }
-        }
-    
-    // MARK: - Obj-c methods
-    
-    @objc func saveTodoItem(sender: UIBarButtonItem) {
-        var dateDeadline: Date?
-        let importance = importanceByIndex(importanceSegmentControl.selectedSegmentIndex)
-        if deadLineSwtich.isOn == true {
-            dateDeadline = calendarView.date
-        }
-        
-        if currentTodoItem != nil {
-            currentTodoItem = TodoItem(id: currentTodoItem!.id, text: textView.text, importance: importance, dateDeadline: dateDeadline, isDone: currentTodoItem!.isDone, dateСreation: currentTodoItem!.dateСreation, dateChanging: Date())
-        } else {
-            currentTodoItem = TodoItem(text: textView.text, importance: importance, dateDeadline: dateDeadline)
-        }
-        
-        fileCache.add(currentTodoItem!)
-        do {
-            try fileCache.saveToJSON(file: mainDataBaseFileName)
-        } catch FileCacheErrors.DirectoryNotFound {
-            print(FileCacheErrors.DirectoryNotFound.rawValue)
-        } catch FileCacheErrors.JSONConvertationError {
-            print(FileCacheErrors.JSONConvertationError.rawValue)
-        } catch FileCacheErrors.PathToFileNotFound {
-            print(FileCacheErrors.PathToFileNotFound.rawValue)
-        } catch FileCacheErrors.WriteFileError {
-            print(FileCacheErrors.WriteFileError.rawValue)
-        } catch {
-            print("Другая ошибка при сохранении файла")
-        }
-        
-        deleteButton.isEnabled = true
-        dismissKeyboard()
-    }
-    
-    @objc func deleteTodoItem(sender: UIButton) {
-        
-        
-        fileCache.remove(with: currentTodoItem!.id)
-        do {
-            try fileCache.saveToJSON(file: mainDataBaseFileName)
-        } catch FileCacheErrors.DirectoryNotFound {
-            print(FileCacheErrors.DirectoryNotFound.rawValue)
-        } catch FileCacheErrors.JSONConvertationError {
-            print(FileCacheErrors.JSONConvertationError.rawValue)
-        } catch FileCacheErrors.PathToFileNotFound {
-            print(FileCacheErrors.PathToFileNotFound.rawValue)
-        } catch FileCacheErrors.WriteFileError {
-            print(FileCacheErrors.WriteFileError.rawValue)
-        } catch {
-            print("Другая ошибка при сохранении файла, когда элемент удален")
-        }
-    
-        currentTodoItem = nil
-        
-        textView.text = Resources.Text.placeholderTitleForTextView
-        textView.textColor = .tertiaryLabel
-        importanceSegmentControl.selectedSegmentIndex = 1
-        
-        dateDeadlineButton.isHidden = true
-        calendarView.isHidden = true
-        secondSeparator.isHidden = true
-        secondSeparator.isHidden = true
-        deadLineSwtich.isOn = false
-        deleteButton.isEnabled = false
-        navigationItem.rightBarButtonItem?.isEnabled = false
-        
-    }
-        
-    @objc func switchChanged(sender: UISwitch) {
-        if sender.isOn {
-            let nextDayDate = Date.getNextDayDate()
-            calendarView.date = nextDayDate
-            dateDeadlineButton.setAttributedTitle(NSAttributedString(string: nextDayDate.toString(), attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .footnote)]), for: .normal)
-
-            calendarViewAppereanceAnimation(dateSelected: false)
-        } else {
-            calendarViewDisappereanceAnimation(dateSelected: false)
-        }
-    }
-    
-    @objc func datePickerSelected(sender: UIDatePicker) {
-        dateDeadlineButton.setAttributedTitle(NSAttributedString(string: sender.date.toString(), attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .footnote)]), for: .normal)
-    }
-    
-    @objc func dateDeadlineButtonTapped(sender: UIButton) {
-        if !calendarView.isHidden {
-            calendarViewDisappereanceAnimation(dateSelected: true)
-        } else {
-            calendarViewAppereanceAnimation(dateSelected: false)
-        }
-    }
-
-    // MARK: - Add subviews
-
-    private func addSubViews() {
-        view.addSubview(scrollView)
-        scrollView.addSubview(textView)
-        scrollView.addSubview(settingsStackView)
-        scrollView.addSubview(deleteButton)
-        
-        settingsStackView.addArrangedSubview(importanceStackView)
-        settingsStackView.addArrangedSubview(firstSeparator)
-        settingsStackView.addArrangedSubview(secondSeparator)
-        settingsStackView.addArrangedSubview(deadlineStackView)
-        settingsStackView.addArrangedSubview(secondSeparator)
-        settingsStackView.addArrangedSubview(calendarView)
-        
-        importanceStackView.addArrangedSubview(importanceLabel)
-        importanceStackView.addArrangedSubview(importanceSegmentControl)
-        
-        deadlineStackView.addArrangedSubview(deadlineVerticalSubStack)
-        deadlineStackView.addArrangedSubview(deadLineSwtich)
-        
-        deadlineVerticalSubStack.addArrangedSubview(deadlineLabel)
-        deadlineVerticalSubStack.addArrangedSubview(dateDeadlineButton)
-
-
-        hideKeyboardWhenTappedAround()
-    }
-    
-    // MARK: - Setup layout
-
-    private func setupLayout() {
-        // ScrollView anchors
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        
-        scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor).isActive = true
-        scrollView.contentSize = view.bounds.size
-        
-        // TextViewAnchors
-        textView.translatesAutoresizingMaskIntoConstraints = false
-
-        textView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: edgeSize).isActive = true
-        textView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -edgeSize).isActive = true
-        textView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: edgeSize).isActive = true
-        textView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -2 * edgeSize).isActive = true
-        textView.heightAnchor.constraint(greaterThanOrEqualToConstant: textViewHeight).isActive = true
-        
-        // SettingsStack anchors
-        settingsStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        settingsStackView.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: edgeSize).isActive = true
-        settingsStackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: edgeSize).isActive = true
-        settingsStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -edgeSize).isActive = true
-        
-        // Separators anchors
-        firstSeparator.translatesAutoresizingMaskIntoConstraints = false
-        firstSeparator.heightAnchor.constraint(equalToConstant: separatorHeight).isActive = true
-        
-        secondSeparator.translatesAutoresizingMaskIntoConstraints = false
-        secondSeparator.heightAnchor.constraint(equalToConstant: separatorHeight).isActive = true
-        
-        secondSeparator.translatesAutoresizingMaskIntoConstraints = false
-        secondSeparator.heightAnchor.constraint(equalToConstant: separatorHeight).isActive = true
-                
-        // SegmentControl anchors
-        importanceSegmentControl.translatesAutoresizingMaskIntoConstraints = false
-        
-        importanceSegmentControl.widthAnchor.constraint(equalToConstant: importanceSegmentControlWidth).isActive = true
-        
-        // Deletebutton anchors
-        deleteButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        deleteButton.heightAnchor.constraint(equalToConstant: deleteButtonHeight).isActive = true
-        deleteButton.topAnchor.constraint(equalTo: settingsStackView.bottomAnchor, constant: edgeSize).isActive = true
-        deleteButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: edgeSize).isActive = true
-        deleteButton.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -edgeSize).isActive = true
-        deleteButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        
-        // DateDeadlineButton anchors
-        dateDeadlineButton.translatesAutoresizingMaskIntoConstraints = false
-        dateDeadlineButton.heightAnchor.constraint(equalToConstant: dateDeadlineButtonHeight).isActive = true
-    
     }
     
     // MARK: - Helper functions
@@ -446,52 +162,146 @@ extension TodoItemViewController {
         }
     }
     
-    // MARK: - Animations
+    
+   //MARK: - objc Methods
+    
+    @objc func saveTodoItem(sender: UIBarButtonItem) {
+        var dateDeadline: Date?
+        let importance = importanceByIndex(todoItemSettingsView.importanceSegmentControl.selectedSegmentIndex)
+        let deadLineSwtichIsOn = todoItemSettingsView.deadLineSwtich.isOn
+        if deadLineSwtichIsOn {
+            dateDeadline = todoItemSettingsView.calendarView.date
+        }
+        
+        if currentTodoItem != nil {
+            currentTodoItem = TodoItem(id: currentTodoItem!.id, text: textView.text, importance: importance, dateDeadline: dateDeadline, isDone: currentTodoItem!.isDone, dateСreation: currentTodoItem!.dateСreation, dateChanging: Date())
+        } else {
+            currentTodoItem = TodoItem(text: textView.text, importance: importance, dateDeadline: dateDeadline)
+        }
+        
+        fileCache.add(currentTodoItem!)
+        do {
+            try fileCache.saveToJSON(file: Resources.Text.mainDataBaseFileName)
+        } catch FileCacheErrors.DirectoryNotFound {
+            print(FileCacheErrors.DirectoryNotFound.rawValue)
+        } catch FileCacheErrors.JSONConvertationError {
+            print(FileCacheErrors.JSONConvertationError.rawValue)
+        } catch FileCacheErrors.PathToFileNotFound {
+            print(FileCacheErrors.PathToFileNotFound.rawValue)
+        } catch FileCacheErrors.WriteFileError {
+            print(FileCacheErrors.WriteFileError.rawValue)
+        } catch {
+            print("Другая ошибка при сохранении файла")
+        }
+        
+        deleteButtonView.deleteButton.isEnabled = true
+    
+        dismissKeyboard()
+    }
+    
+    @objc func switchChanged(sender: UISwitch) {
+       
+        if sender.isOn {
+            let nextDayDate = Date.getNextDayDate()
+            todoItemSettingsView.calendarView.date = nextDayDate
+            todoItemSettingsView.dateDeadlineButton.setAttributedTitle(NSAttributedString(string: nextDayDate.toString(), attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .footnote)]), for: .normal)
 
+            calendarViewAppereanceAnimation(dateSelected: false)
+        } else {
+            calendarViewDisappereanceAnimation(dateSelected: false)
+        }
+    }
+    
+    @objc func datePickerSelected(sender: UIDatePicker) {
+        todoItemSettingsView.dateDeadlineButton.setAttributedTitle(NSAttributedString(string: sender.date.toString(), attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .footnote)]), for: .normal)
+    }
+    
+    @objc func dateDeadlineButtonTapped(sender: UIButton) {
+        if !todoItemSettingsView.calendarView.isHidden {
+            calendarViewDisappereanceAnimation(dateSelected: true)
+        } else {
+            calendarViewAppereanceAnimation(dateSelected: false)
+        }
+    }
+    
+    @objc func deleteTodoItem(sender: UIButton) {
+
+        fileCache.remove(with: currentTodoItem!.id)
+        do {
+            try fileCache.saveToJSON(file: Resources.Text.mainDataBaseFileName)
+        } catch FileCacheErrors.DirectoryNotFound {
+            print(FileCacheErrors.DirectoryNotFound.rawValue)
+        } catch FileCacheErrors.JSONConvertationError {
+            print(FileCacheErrors.JSONConvertationError.rawValue)
+        } catch FileCacheErrors.PathToFileNotFound {
+            print(FileCacheErrors.PathToFileNotFound.rawValue)
+        } catch FileCacheErrors.WriteFileError {
+            print(FileCacheErrors.WriteFileError.rawValue)
+        } catch {
+            print("Другая ошибка при сохранении файла, когда элемент удален")
+        }
+
+        currentTodoItem = nil
+
+        textView.text = Resources.Text.placeholderTitleForTextView
+        textView.textColor = Resources.Colors.tertiaryLabel
+        todoItemSettingsView.importanceSegmentControl.selectedSegmentIndex = 1
+
+        todoItemSettingsView.dateDeadlineButton.isHidden = true
+        todoItemSettingsView.calendarView.isHidden = true
+        todoItemSettingsView.secondSeparator.isHidden = true
+        todoItemSettingsView.deadLineSwtich.isOn = false
+        deleteButtonView.deleteButton.isEnabled = false
+        navigationItem.rightBarButtonItem?.isEnabled = false
+
+    }
+    
+    //MARK: - Animations
     private func calendarViewAppereanceAnimation(dateSelected: Bool) {
-        dateDeadlineButton.transform = .identity
+        self.todoItemSettingsView.dateDeadlineButton.transform = .identity
         
         UIView.animate(withDuration: 0.3) {
-            self.calendarView.isHidden = false
-            self.secondSeparator.isHidden = false
-            self.dateDeadlineButton.isHidden = dateSelected ? true : false
+            self.todoItemSettingsView.calendarView.isHidden = false
+            self.todoItemSettingsView.secondSeparator.isHidden = false
+            self.todoItemSettingsView.dateDeadlineButton.isHidden = dateSelected ? true : false
                     
-            self.calendarView.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
-            self.calendarView.alpha = 0.0
-            self.dateDeadlineButton.alpha = dateSelected ? 0 : 1.0
+            self.todoItemSettingsView.calendarView.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
+            self.todoItemSettingsView.calendarView.alpha = 0.0
+            self.todoItemSettingsView.dateDeadlineButton.alpha = dateSelected ? 0 : 1.0
             
-            self.calendarView.transform = .identity
-            self.calendarView.alpha = 1.0
-            self.dateDeadlineButton.alpha = 1.0
+            self.todoItemSettingsView.calendarView.transform = .identity
+            self.todoItemSettingsView.calendarView.alpha = 1.0
+            self.todoItemSettingsView.dateDeadlineButton.alpha = 1.0
         }
     }
         
     private func calendarViewDisappereanceAnimation(dateSelected: Bool) {
         UIView.animate(withDuration: 0.3) {
-            self.calendarView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-            self.calendarView.alpha = 1.0
+            self.todoItemSettingsView.calendarView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            self.todoItemSettingsView.calendarView.alpha = 1.0
             
-            self.dateDeadlineButton.alpha = 1.0
-            self.dateDeadlineButton.transform = .identity
+            self.todoItemSettingsView.dateDeadlineButton.alpha = 1.0
+            self.todoItemSettingsView.dateDeadlineButton.transform = .identity
                 
-            self.calendarView.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
-            self.calendarView.alpha = 0.0
+            self.todoItemSettingsView.calendarView.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
+            self.todoItemSettingsView.calendarView.alpha = 0.0
             
-            self.dateDeadlineButton.transform = dateSelected ? .identity : self.dateDeadlineButton.transform.translatedBy(x: 0, y: -10)
-            self.dateDeadlineButton.alpha = dateSelected ? 1.0 : 0.0
+            self.todoItemSettingsView.dateDeadlineButton.transform = dateSelected ? .identity : self.todoItemSettingsView.dateDeadlineButton.transform.translatedBy(x: 0, y: -10)
+            self.todoItemSettingsView.dateDeadlineButton.alpha = dateSelected ? 1.0 : 0.0
             
-            self.calendarView.isHidden = true
-            self.secondSeparator.isHidden = true
-            self.dateDeadlineButton.isHidden = dateSelected ? false : true
+            self.todoItemSettingsView.calendarView.isHidden = true
+            self.todoItemSettingsView.secondSeparator.isHidden = true
+            self.todoItemSettingsView.dateDeadlineButton.isHidden = dateSelected ? false : true
         }
     }
 }
 
+// MARK: - TextViewDelegate
 extension TodoItemViewController: UITextViewDelegate {
     public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        if textView.text == Resources.Text.placeholderTitleForTextView && textView.textColor == .tertiaryLabel {
+        if textView.text == Resources.Text.placeholderTitleForTextView && textView.textColor == Resources.Colors.tertiaryLabel {
             textView.text = ""
-            textView.textColor = .primaryLabel
+            textView.textColor = Resources.Colors.primaryLabel
         }
         return true
     }
@@ -499,13 +309,13 @@ extension TodoItemViewController: UITextViewDelegate {
     public func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         if textView.text == "" {
             textView.text = Resources.Text.placeholderTitleForTextView
-            textView.textColor = .tertiaryLabel
+            textView.textColor = Resources.Colors.tertiaryLabel
         }
         return true
     }
     
     public func textViewDidChange(_ textView: UITextView) {
-        if textView.text != "" && textView.textColor != .tertiaryLabel {
+        if textView.text != "" && textView.textColor != Resources.Colors.tertiaryLabel {
             navigationItem.rightBarButtonItem?.isEnabled = true
         } else {
             navigationItem.rightBarButtonItem?.isEnabled = false
@@ -513,33 +323,31 @@ extension TodoItemViewController: UITextViewDelegate {
     }
 }
 
+// MARK: - Set Constaints
 
-
-
-
-private let separatorHeight: CGFloat = 1
-private let textViewHeight: CGFloat = 120
-private let dateDeadlineButtonHeight: CGFloat = 18
-private let deleteButtonHeight: CGFloat = 56
-
-private let importanceSegmentControlWidth: CGFloat = 150
-
-private let cornerRadius: CGFloat = 16
-private let edgeSize: CGFloat = 16
-private let verticalStackEdgeSize: CGFloat = 12.5
-private let settingsStackViewSpacing: CGFloat = 11
-
-
-private let todoItemTitle = "Дело"
-
-private let deleteTitle = "Удалить"
-private let cancelTitle = "Отменить"
-private let saveTitle = "Сохранить"
-
-private let doBeforeTitle = "Cделать до"
-private let importanceTitle = "Важность"
-
-
-private let mainDataBaseFileName = "2"
-
-private var items: [Any] = [UIImage.lowImportanceIcon, NSAttributedString(string: "нет", attributes: [NSAttributedString.Key.font: UIFont.subhead!]), UIImage.highImportanceIcon]
+extension TodoItemViewController {
+    private func setConstraints() {
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor),
+            
+            textView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: Resources.Constants.edgeSize),
+            textView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: Resources.Constants.edgeSize),
+            textView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -Resources.Constants.edgeSize),
+            textView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -2 * Resources.Constants.edgeSize),
+            textView.heightAnchor.constraint(greaterThanOrEqualToConstant: Resources.Constants.textViewHeight),
+            
+            todoItemSettingsView.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: Resources.Constants.edgeSize),
+            todoItemSettingsView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: Resources.Constants.edgeSize),
+            todoItemSettingsView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -Resources.Constants.edgeSize),
+            
+            deleteButtonView.topAnchor.constraint(equalTo: todoItemSettingsView.bottomAnchor, constant: Resources.Constants.edgeSize),
+            deleteButtonView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: Resources.Constants.edgeSize),
+            deleteButtonView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -Resources.Constants.edgeSize),
+            deleteButtonView.heightAnchor.constraint(equalToConstant: 56),
+            deleteButtonView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -16)
+        ])
+    }
+}

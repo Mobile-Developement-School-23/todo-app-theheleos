@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		782D5AC52A467DFF00777655 /* TodoItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782D5AC42A467DFF00777655 /* TodoItemViewController.swift */; };
-		782D5ACD2A467E6E00777655 /* BodyLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782D5AC92A467E6E00777655 /* BodyLabelView.swift */; };
 		782D5ACE2A467E6E00777655 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782D5ACA2A467E6E00777655 /* TextView.swift */; };
 		782D5AD02A467E6E00777655 /* SeparatorLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782D5ACC2A467E6E00777655 /* SeparatorLineView.swift */; };
 		782D5AD62A467EDB00777655 /* SF-Pro-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 782D5AD22A467EDB00777655 /* SF-Pro-Display-Bold.otf */; };
@@ -16,8 +14,6 @@
 		782D5AD82A467EDB00777655 /* SF-ProText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 782D5AD42A467EDB00777655 /* SF-ProText-Regular.ttf */; };
 		782D5AD92A467EDB00777655 /* SF-ProText-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 782D5AD52A467EDB00777655 /* SF-ProText-Semibold.ttf */; };
 		782D5AE02A467F3E00777655 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782D5ADB2A467F3E00777655 /* Date+Extensions.swift */; };
-		782D5AE12A467F3E00777655 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782D5ADC2A467F3E00777655 /* UIColor+Extensions.swift */; };
-		782D5AE22A467F3E00777655 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782D5ADD2A467F3E00777655 /* UIImage+Extensions.swift */; };
 		782D5AE32A467F3E00777655 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782D5ADE2A467F3E00777655 /* UIViewController+Extensions.swift */; };
 		782D5AE42A467F3E00777655 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782D5ADF2A467F3E00777655 /* UIFont+Extensions.swift */; };
 		7840C2252A33B4EC00EEA3AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7840C2242A33B4EC00EEA3AF /* AppDelegate.swift */; };
@@ -33,7 +29,7 @@
 		B3765EA22A4E0D8200FE50D1 /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765EA12A4E0D8200FE50D1 /* UILabel+Extensions.swift */; };
 		B3765EA42A4E0F2A00FE50D1 /* NavBarElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765EA32A4E0F2A00FE50D1 /* NavBarElements.swift */; };
 		B3765EAA2A4E147500FE50D1 /* TodoItemSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765EA92A4E147500FE50D1 /* TodoItemSettingsView.swift */; };
-		B3765EAE2A4E25A400FE50D1 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765EAD2A4E25A400FE50D1 /* TestViewController.swift */; };
+		B3765EAE2A4E25A400FE50D1 /* TodoItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765EAD2A4E25A400FE50D1 /* TodoItemViewController.swift */; };
 		B3765EB52A4E3BBC00FE50D1 /* DeleteButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765EB42A4E3BBC00FE50D1 /* DeleteButtonView.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,8 +51,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		782D5AC42A467DFF00777655 /* TodoItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemViewController.swift; sourceTree = "<group>"; };
-		782D5AC92A467E6E00777655 /* BodyLabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyLabelView.swift; sourceTree = "<group>"; };
 		782D5ACA2A467E6E00777655 /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		782D5ACC2A467E6E00777655 /* SeparatorLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorLineView.swift; sourceTree = "<group>"; };
 		782D5AD22A467EDB00777655 /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
@@ -64,8 +58,6 @@
 		782D5AD42A467EDB00777655 /* SF-ProText-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-ProText-Regular.ttf"; sourceTree = "<group>"; };
 		782D5AD52A467EDB00777655 /* SF-ProText-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-ProText-Semibold.ttf"; sourceTree = "<group>"; };
 		782D5ADB2A467F3E00777655 /* Date+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
-		782D5ADC2A467F3E00777655 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
-		782D5ADD2A467F3E00777655 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		782D5ADE2A467F3E00777655 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		782D5ADF2A467F3E00777655 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		7840C2212A33B4EC00EEA3AF /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,7 +77,7 @@
 		B3765EA12A4E0D8200FE50D1 /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		B3765EA32A4E0F2A00FE50D1 /* NavBarElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarElements.swift; sourceTree = "<group>"; };
 		B3765EA92A4E147500FE50D1 /* TodoItemSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemSettingsView.swift; sourceTree = "<group>"; };
-		B3765EAD2A4E25A400FE50D1 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		B3765EAD2A4E25A400FE50D1 /* TodoItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemViewController.swift; sourceTree = "<group>"; };
 		B3765EB42A4E3BBC00FE50D1 /* DeleteButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -127,10 +119,9 @@
 		782D5AC82A467E6E00777655 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				782D5AC92A467E6E00777655 /* BodyLabelView.swift */,
 				782D5ACA2A467E6E00777655 /* TextView.swift */,
-				782D5ACC2A467E6E00777655 /* SeparatorLineView.swift */,
 				B3765EA92A4E147500FE50D1 /* TodoItemSettingsView.swift */,
+				782D5ACC2A467E6E00777655 /* SeparatorLineView.swift */,
 				B3765EB42A4E3BBC00FE50D1 /* DeleteButtonView.swift */,
 			);
 			path = Views;
@@ -151,8 +142,6 @@
 			isa = PBXGroup;
 			children = (
 				782D5ADB2A467F3E00777655 /* Date+Extensions.swift */,
-				782D5ADC2A467F3E00777655 /* UIColor+Extensions.swift */,
-				782D5ADD2A467F3E00777655 /* UIImage+Extensions.swift */,
 				782D5ADE2A467F3E00777655 /* UIViewController+Extensions.swift */,
 				782D5ADF2A467F3E00777655 /* UIFont+Extensions.swift */,
 				B3765EA12A4E0D8200FE50D1 /* UILabel+Extensions.swift */,
@@ -187,9 +176,8 @@
 				7840C25E2A33D44E00EEA3AF /* TodoItemModule */,
 				782D5ADA2A467F3E00777655 /* Extensions */,
 				7840C25F2A33D4FB00EEA3AF /* Services */,
-				7840C2552A33B67100EEA3AF /* SupportingFiles */,
 				B3765E9F2A4DFCC400FE50D1 /* Resources.swift */,
-				B3765EAD2A4E25A400FE50D1 /* TestViewController.swift */,
+				7840C2552A33B67100EEA3AF /* SupportingFiles */,
 			);
 			path = ToDoList;
 			sourceTree = "<group>";
@@ -259,7 +247,7 @@
 		B3765E9E2A4CEA2300FE50D1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				782D5AC42A467DFF00777655 /* TodoItemViewController.swift */,
+				B3765EAD2A4E25A400FE50D1 /* TodoItemViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -404,21 +392,17 @@
 				7840C2252A33B4EC00EEA3AF /* AppDelegate.swift in Sources */,
 				782D5AE02A467F3E00777655 /* Date+Extensions.swift in Sources */,
 				7840C2592A33B6FF00EEA3AF /* TodoItem.swift in Sources */,
-				782D5AC52A467DFF00777655 /* TodoItemViewController.swift in Sources */,
 				782D5ACE2A467E6E00777655 /* TextView.swift in Sources */,
 				782D5AD02A467E6E00777655 /* SeparatorLineView.swift in Sources */,
 				B3765EA22A4E0D8200FE50D1 /* UILabel+Extensions.swift in Sources */,
 				B3765EA42A4E0F2A00FE50D1 /* NavBarElements.swift in Sources */,
 				782D5AE32A467F3E00777655 /* UIViewController+Extensions.swift in Sources */,
-				782D5AE12A467F3E00777655 /* UIColor+Extensions.swift in Sources */,
-				782D5ACD2A467E6E00777655 /* BodyLabelView.swift in Sources */,
 				B3765EA02A4DFCC400FE50D1 /* Resources.swift in Sources */,
 				782D5AE42A467F3E00777655 /* UIFont+Extensions.swift in Sources */,
 				B3765EAA2A4E147500FE50D1 /* TodoItemSettingsView.swift in Sources */,
-				782D5AE22A467F3E00777655 /* UIImage+Extensions.swift in Sources */,
 				7840C2272A33B4EC00EEA3AF /* SceneDelegate.swift in Sources */,
 				B3765EB52A4E3BBC00FE50D1 /* DeleteButtonView.swift in Sources */,
-				B3765EAE2A4E25A400FE50D1 /* TestViewController.swift in Sources */,
+				B3765EAE2A4E25A400FE50D1 /* TodoItemViewController.swift in Sources */,
 				7840C2612A33D50900EEA3AF /* FileCache.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

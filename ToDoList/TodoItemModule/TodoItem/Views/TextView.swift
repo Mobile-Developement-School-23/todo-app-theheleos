@@ -14,14 +14,13 @@ class TextView: UITextView {
     
     private func setupTextView() {
         text = "Что надо сделать?"
-        textColor = .tertiaryLabel
+        textColor = Resources.Colors.tertiaryLabel
         textContainerInset = UIEdgeInsets.init(top: 16, left: 11, bottom: 16, right: 16)
         font = UIFont.body
         layer.cornerRadius = 16
-        layer.backgroundColor = UIColor.secondaryBack?.cgColor
+        backgroundColor = Resources.Colors.secondaryBack
         isScrollEnabled = false
         autocorrectionType = .no
         translatesAutoresizingMaskIntoConstraints = false
     }
 }
-
