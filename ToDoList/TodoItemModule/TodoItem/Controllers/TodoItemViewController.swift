@@ -1,11 +1,23 @@
-
-
 import UIKit
 
 class TodoItemViewController: UIViewController {
     
     private let scrollView = UIScrollView()
-    private let textView = TextView()
+    
+    private let textView: UITextView = {
+        let textView = UITextView()
+        textView.text = "Что надо сделать?"
+        textView.textColor = Resources.Colors.tertiaryLabel
+        textView.textContainerInset = UIEdgeInsets.init(top: 16, left: 11, bottom: 16, right: 16)
+        textView.font = UIFont.body
+        textView.layer.cornerRadius = 16
+        textView.backgroundColor = Resources.Colors.secondaryBack
+        textView.isScrollEnabled = false
+        textView.autocorrectionType = .no
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        return textView
+    }()
+    
     private let todoItemSettingsView = TodoItemSettingsView()
     private let deleteButtonView = DeleteButtonView()
     
@@ -32,7 +44,6 @@ class TodoItemViewController: UIViewController {
         
         setupLayout()
         setConstraints()
-        setDelegates()
     }
     
 // MARK: - Setup Layout
@@ -48,6 +59,8 @@ class TodoItemViewController: UIViewController {
         scrollView.addSubview(todoItemSettingsView)
         scrollView.addSubview(deleteButtonView)
         
+        textView.delegate = self
+        
         makeLoad()
         setValues()
         
@@ -57,42 +70,28 @@ class TodoItemViewController: UIViewController {
     private func setupNavBar() {
         title = Resources.Text.todoItemNavBarTitle
         
-        addNavBarButton(location: .leftElement)
-        addNavBarButton(location: .rightElement)
-        navigationItem.rightBarButtonItem?.setTitleTextAttributes(
-            [NSAttributedString.Key.foregroundColor: Resources.Colors.tertiaryLabel!],
-            for: .disabled
-        )
-        
         navigationController!.navigationBar.titleTextAttributes = [
             NSAttributedString.Key.font: UIFont.headline ?? .systemFont(ofSize: 17),
             NSAttributedString.Key.foregroundColor: Resources.Colors.primaryLabel ?? .black
         ]
+        
+        addNavBarButtons()
     }
         
-        private func addNavBarButton(location: NavBarElements) {
-            let button = UIButton(type: .system)
-            button.setTitleColor(Resources.Colors.blueColor, for: .normal)
-            
-            switch location {
-            case .leftElement:
-                button.setTitle(Resources.Text.cancelButtonTitle, for: .normal)
-                button.titleLabel?.font = UIFont.body
-                navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
-            case .rightElement:
-                button.setTitle(Resources.Text.saveButtonTitle, for: .normal)
-                button.setTitleColor(Resources.Colors.tertiaryLabel, for: .disabled)
-                button.titleLabel?.font = UIFont.headline
-                button.addTarget(self, action: #selector(saveTodoItem), for: .touchUpInside)
-                navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
-            }
+        private func addNavBarButtons() {
+            let leftButton = UIButton(type: .system)
+            leftButton.setTitleColor(Resources.Colors.blueColor, for: .normal)
+            leftButton.setTitle(Resources.Text.cancelButtonTitle, for: .normal)
+            leftButton.titleLabel?.font = UIFont.body
+            navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftButton)
+    
+            let rightButton = UIButton(type: .system)
+            rightButton.setTitle(Resources.Text.saveButtonTitle, for: .normal)
+            rightButton.setTitleColor(Resources.Colors.tertiaryLabel, for: .disabled)
+            rightButton.titleLabel?.font = UIFont.headline
+            rightButton.addTarget(self, action: #selector(saveTodoItem), for: .touchUpInside)
+            navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightButton)
         }
-    
-    //MARK: - Set Delegates
-    
-    private func setDelegates() {
-        textView.delegate = self
-    }
     
     // MARK: - Load saved items
 
@@ -113,7 +112,7 @@ class TodoItemViewController: UIViewController {
            
             textView.text = currentTodoItem.text
             textView.textColor = Resources.Colors.primaryLabel
-            todoItemSettingsView.importanceSegmentControl.selectedSegmentIndex = indexByImportance(currentTodoItem.importance)
+            todoItemSettingsView.importanceSegmentControl.selectedSegmentIndex = currentTodoItem.importance.value
             
             if let dateDeadline = currentTodoItem.dateDeadline {
                 todoItemSettingsView.dateDeadlineButton.setAttributedTitle(NSAttributedString(string: dateDeadline.toString(), attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .footnote)]), for: .normal)
@@ -136,38 +135,11 @@ class TodoItemViewController: UIViewController {
         }
     }
     
-    // MARK: - Helper functions
-
-    private func indexByImportance(_ importance: Importance) -> Int {
-        switch importance {
-            case .unimportant:
-                return 0
-            case .normal:
-                return 1
-            case .important:
-                return 2
-        }
-    }
-    
-    private func importanceByIndex(_ index: Int) -> Importance {
-        switch index {
-            case 0:
-                return .unimportant
-            case 1:
-                return .normal
-            case 2:
-                return .important
-            default:
-                return .normal
-        }
-    }
-    
-    
    //MARK: - objc Methods
     
     @objc func saveTodoItem(sender: UIBarButtonItem) {
         var dateDeadline: Date?
-        let importance = importanceByIndex(todoItemSettingsView.importanceSegmentControl.selectedSegmentIndex)
+        let importance = Importance(rawValue: todoItemSettingsView.importanceSegmentControl.selectedSegmentIndex) ?? .normal
         let deadLineSwtichIsOn = todoItemSettingsView.deadLineSwtich.isOn
         if deadLineSwtichIsOn {
             dateDeadline = todoItemSettingsView.calendarView.date

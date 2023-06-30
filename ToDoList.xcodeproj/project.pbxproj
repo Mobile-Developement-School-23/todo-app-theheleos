@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		782D5ACE2A467E6E00777655 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782D5ACA2A467E6E00777655 /* TextView.swift */; };
 		782D5AD02A467E6E00777655 /* SeparatorLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782D5ACC2A467E6E00777655 /* SeparatorLineView.swift */; };
 		782D5AD62A467EDB00777655 /* SF-Pro-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 782D5AD22A467EDB00777655 /* SF-Pro-Display-Bold.otf */; };
 		782D5AD72A467EDB00777655 /* SF-Pro-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 782D5AD32A467EDB00777655 /* SF-Pro-Display-Semibold.otf */; };
@@ -51,7 +50,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		782D5ACA2A467E6E00777655 /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		782D5ACC2A467E6E00777655 /* SeparatorLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorLineView.swift; sourceTree = "<group>"; };
 		782D5AD22A467EDB00777655 /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
 		782D5AD32A467EDB00777655 /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
@@ -119,7 +117,6 @@
 		782D5AC82A467E6E00777655 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				782D5ACA2A467E6E00777655 /* TextView.swift */,
 				B3765EA92A4E147500FE50D1 /* TodoItemSettingsView.swift */,
 				782D5ACC2A467E6E00777655 /* SeparatorLineView.swift */,
 				B3765EB42A4E3BBC00FE50D1 /* DeleteButtonView.swift */,
@@ -392,7 +389,6 @@
 				7840C2252A33B4EC00EEA3AF /* AppDelegate.swift in Sources */,
 				782D5AE02A467F3E00777655 /* Date+Extensions.swift in Sources */,
 				7840C2592A33B6FF00EEA3AF /* TodoItem.swift in Sources */,
-				782D5ACE2A467E6E00777655 /* TextView.swift in Sources */,
 				782D5AD02A467E6E00777655 /* SeparatorLineView.swift in Sources */,
 				B3765EA22A4E0D8200FE50D1 /* UILabel+Extensions.swift in Sources */,
 				B3765EA42A4E0F2A00FE50D1 /* NavBarElements.swift in Sources */,

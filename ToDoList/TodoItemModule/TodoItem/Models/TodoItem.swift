@@ -128,6 +128,30 @@ enum Importance: String {
     case unimportant
     case normal
     case important
+    
+    init?(rawValue: Int) {
+        switch rawValue {
+        case 0:
+            self = .unimportant
+        case 1:
+            self = .normal
+        case 2:
+            self = .important
+        default:
+            return nil
+        }
+    }
+    
+    var value: Int {
+        switch self {
+        case .unimportant:
+            return 0
+        case .normal:
+            return 1
+        case .important:
+            return 2
+        }
+    }
 }
 
 private enum JSONKeys: String {
@@ -144,3 +168,5 @@ private enum CSVSeparator: String {
     case comma = ","
     case semicolon = ";"
 }
+
+
