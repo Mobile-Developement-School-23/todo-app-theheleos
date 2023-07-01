@@ -30,6 +30,10 @@
 		B3765EAA2A4E147500FE50D1 /* TodoItemSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765EA92A4E147500FE50D1 /* TodoItemSettingsView.swift */; };
 		B3765EAE2A4E25A400FE50D1 /* TodoItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765EAD2A4E25A400FE50D1 /* TodoItemViewController.swift */; };
 		B3765EB52A4E3BBC00FE50D1 /* DeleteButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765EB42A4E3BBC00FE50D1 /* DeleteButtonView.swift */; };
+		B3765ECE2A4FB45700FE50D1 /* CocoaLumberjack in Frameworks */ = {isa = PBXBuildFile; productRef = B3765ECD2A4FB45700FE50D1 /* CocoaLumberjack */; };
+		B3765ED02A4FB45700FE50D1 /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B3765ECF2A4FB45700FE50D1 /* CocoaLumberjackSwift */; };
+		B3765ED22A4FB45700FE50D1 /* CocoaLumberjackSwiftLogBackend in Frameworks */ = {isa = PBXBuildFile; productRef = B3765ED12A4FB45700FE50D1 /* CocoaLumberjackSwiftLogBackend */; };
+		B3765ED42A4FB49700FE50D1 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765ED32A4FB49700FE50D1 /* Logger.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +81,7 @@
 		B3765EA92A4E147500FE50D1 /* TodoItemSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemSettingsView.swift; sourceTree = "<group>"; };
 		B3765EAD2A4E25A400FE50D1 /* TodoItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemViewController.swift; sourceTree = "<group>"; };
 		B3765EB42A4E3BBC00FE50D1 /* DeleteButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButtonView.swift; sourceTree = "<group>"; };
+		B3765ED32A4FB49700FE50D1 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +89,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3765ED02A4FB45700FE50D1 /* CocoaLumberjackSwift in Frameworks */,
+				B3765ED22A4FB45700FE50D1 /* CocoaLumberjackSwiftLogBackend in Frameworks */,
+				B3765ECE2A4FB45700FE50D1 /* CocoaLumberjack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,6 +209,7 @@
 			children = (
 				7840C2242A33B4EC00EEA3AF /* AppDelegate.swift */,
 				7840C2262A33B4EC00EEA3AF /* SceneDelegate.swift */,
+				B3765ED32A4FB49700FE50D1 /* Logger.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -265,6 +274,11 @@
 			dependencies = (
 			);
 			name = ToDoList;
+			packageProductDependencies = (
+				B3765ECD2A4FB45700FE50D1 /* CocoaLumberjack */,
+				B3765ECF2A4FB45700FE50D1 /* CocoaLumberjackSwift */,
+				B3765ED12A4FB45700FE50D1 /* CocoaLumberjackSwiftLogBackend */,
+			);
 			productName = ToDoList;
 			productReference = 7840C2212A33B4EC00EEA3AF /* ToDoList.app */;
 			productType = "com.apple.product-type.application";
@@ -340,6 +354,9 @@
 				Base,
 			);
 			mainGroup = 7840C2182A33B4EC00EEA3AF;
+			packageReferences = (
+				B3765ECC2A4FB45700FE50D1 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
+			);
 			productRefGroup = 7840C2222A33B4EC00EEA3AF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -396,6 +413,7 @@
 				B3765EA02A4DFCC400FE50D1 /* Resources.swift in Sources */,
 				782D5AE42A467F3E00777655 /* UIFont+Extensions.swift in Sources */,
 				B3765EAA2A4E147500FE50D1 /* TodoItemSettingsView.swift in Sources */,
+				B3765ED42A4FB49700FE50D1 /* Logger.swift in Sources */,
 				7840C2272A33B4EC00EEA3AF /* SceneDelegate.swift in Sources */,
 				B3765EB52A4E3BBC00FE50D1 /* DeleteButtonView.swift in Sources */,
 				B3765EAE2A4E25A400FE50D1 /* TodoItemViewController.swift in Sources */,
@@ -753,6 +771,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B3765ECC2A4FB45700FE50D1 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CocoaLumberjack/CocoaLumberjack.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B3765ECD2A4FB45700FE50D1 /* CocoaLumberjack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B3765ECC2A4FB45700FE50D1 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
+			productName = CocoaLumberjack;
+		};
+		B3765ECF2A4FB45700FE50D1 /* CocoaLumberjackSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B3765ECC2A4FB45700FE50D1 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
+			productName = CocoaLumberjackSwift;
+		};
+		B3765ED12A4FB45700FE50D1 /* CocoaLumberjackSwiftLogBackend */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B3765ECC2A4FB45700FE50D1 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
+			productName = CocoaLumberjackSwiftLogBackend;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7840C2192A33B4EC00EEA3AF /* Project object */;
 }
