@@ -1,4 +1,5 @@
 import UIKit
+import TodoItem
 // swiftlint:disable line_length
 // swiftlint:disable trailing_whitespace
 
@@ -114,7 +115,7 @@ class TodoItemViewController: UIViewController {
            
             textView.text = currentTodoItem.text
             textView.textColor = Resources.Colors.primaryLabel
-            todoItemSettingsView.importanceSegmentControl.selectedSegmentIndex = currentTodoItem.importance.value
+            todoItemSettingsView.importanceSegmentControl.selectedSegmentIndex = indexByImportance(currentTodoItem.importance)
             
             if let dateDeadline = currentTodoItem.dateDeadline {
                 todoItemSettingsView.dateDeadlineButton.setAttributedTitle(NSAttributedString(string: dateDeadline.toString(), attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .footnote)]), for: .normal)
@@ -137,11 +138,36 @@ class TodoItemViewController: UIViewController {
         }
     }
     
+    //MARK: - Helper functions
+    private func indexByImportance(_ importance: Importance) -> Int {
+        switch importance {
+            case .unimportant:
+                return 0
+            case .ordinary:
+                return 1
+            case .important:
+                return 2
+        }
+    }
+    
+    private func importanceByIndex(_ index: Int) -> Importance {
+        switch index {
+            case 0:
+                return .unimportant
+            case 1:
+                return .ordinary
+            case 2:
+                return .important
+            default:
+                return .ordinary
+        }
+    }
+    
    //MARK: - objc Methods
     
     @objc func saveTodoItem(sender: UIBarButtonItem) {
         var dateDeadline: Date?
-        let importance = Importance(rawValue: todoItemSettingsView.importanceSegmentControl.selectedSegmentIndex) ?? .normal
+        let importance = importanceByIndex(todoItemSettingsView.importanceSegmentControl.selectedSegmentIndex)
         let deadLineSwtichIsOn = todoItemSettingsView.deadLineSwtich.isOn
         if deadLineSwtichIsOn {
             dateDeadline = todoItemSettingsView.calendarView.date
@@ -269,6 +295,8 @@ class TodoItemViewController: UIViewController {
         }
     }
 }
+
+    
 
 // MARK: - TextViewDelegate
 extension TodoItemViewController: UITextViewDelegate {
