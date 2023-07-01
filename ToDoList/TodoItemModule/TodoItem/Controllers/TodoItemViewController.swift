@@ -23,6 +23,7 @@ class TodoItemViewController: UIViewController {
     
     private var currentTodoItem: TodoItem? = nil
     private let fileCache = FileCache()
+    public var dataCompletionHandler: ((TodoItem?) -> Void)?
     
     // MARK: - Initializators
 
@@ -75,14 +76,15 @@ class TodoItemViewController: UIViewController {
             NSAttributedString.Key.foregroundColor: Resources.Colors.primaryLabel ?? .black
         ]
         
-        addNavBarButtons()
+        setupNavigatorButtons()
     }
         
-        private func addNavBarButtons() {
+        func setupNavigatorButtons() {
             let leftButton = UIButton(type: .system)
             leftButton.setTitleColor(Resources.Colors.blueColor, for: .normal)
             leftButton.setTitle(Resources.Text.cancelButtonTitle, for: .normal)
             leftButton.titleLabel?.font = UIFont.body
+            leftButton.addTarget(self, action: #selector(dismissTapped(sender:)), for: .touchUpInside)
             navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftButton)
     
             let rightButton = UIButton(type: .system)
@@ -135,13 +137,48 @@ class TodoItemViewController: UIViewController {
         }
     }
     
+    //MARK: - Helper Functions
+    func setUserInteractionDisabled() {
+        deleteButtonView.deleteButton.isHidden = true
+        textView.isUserInteractionEnabled = false
+        todoItemSettingsView.importanceSegmentControl.isUserInteractionEnabled = false
+        todoItemSettingsView.deadLineSwtich.isUserInteractionEnabled = false
+    }
+    
+    private func indexByImportance(_ importance: Importance) -> Int {
+        switch importance {
+            case .unimportant:
+                return 0
+            case .ordinary:
+                return 1
+            case .important:
+                return 2
+        }
+    }
+    
+    private func importanceByIndex(_ index: Int) -> Importance {
+        switch index {
+            case 0:
+                return .unimportant
+            case 1:
+                return .ordinary
+            case 2:
+                return .important
+            default:
+                return .ordinary
+        }
+    }
+    
    //MARK: - objc Methods
+    @objc func dismissTapped(sender: UIBarButtonItem) {
+        print(1)
+        dismiss(animated: true, completion: nil)
+    }
     
     @objc func saveTodoItem(sender: UIBarButtonItem) {
         var dateDeadline: Date?
-        let importance = Importance(rawValue: todoItemSettingsView.importanceSegmentControl.selectedSegmentIndex) ?? .normal
-        let deadLineSwtichIsOn = todoItemSettingsView.deadLineSwtich.isOn
-        if deadLineSwtichIsOn {
+        let importance = importanceByIndex(todoItemSettingsView.importanceSegmentControl.selectedSegmentIndex)
+        if todoItemSettingsView.deadLineSwtich.isOn == true {
             dateDeadline = todoItemSettingsView.calendarView.date
         }
         
@@ -151,23 +188,10 @@ class TodoItemViewController: UIViewController {
             currentTodoItem = TodoItem(text: textView.text, importance: importance, dateDeadline: dateDeadline)
         }
         
-        fileCache.add(currentTodoItem!)
-        do {
-            try fileCache.saveToJSON(file: Resources.Text.mainDataBaseFileName)
-        } catch FileCacheErrors.DirectoryNotFound {
-            print(FileCacheErrors.DirectoryNotFound.rawValue)
-        } catch FileCacheErrors.JSONConvertationError {
-            print(FileCacheErrors.JSONConvertationError.rawValue)
-        } catch FileCacheErrors.PathToFileNotFound {
-            print(FileCacheErrors.PathToFileNotFound.rawValue)
-        } catch FileCacheErrors.WriteFileError {
-            print(FileCacheErrors.WriteFileError.rawValue)
-        } catch {
-            print("Другая ошибка при сохранении файла")
+        if let completion = dataCompletionHandler {
+            completion(currentTodoItem!)
         }
-        
-        deleteButtonView.deleteButton.isEnabled = true
-    
+        dismiss(animated: true, completion: nil)
         dismissKeyboard()
     }
     

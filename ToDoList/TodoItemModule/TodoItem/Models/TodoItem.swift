@@ -4,12 +4,12 @@ import Foundation
 
 struct TodoItem {
     let id: String
-    let text: String
-    let importance: Importance
-    let dateDeadline: Date?
-    let isDone: Bool
-    let dateСreation: Date
-    let dateChanging: Date?
+    var text: String
+    var importance: Importance
+    var dateDeadline: Date?
+    var isDone: Bool
+    var dateСreation: Date
+    var dateChanging: Date?
 
     init(id: String = UUID().uuidString, text: String, importance: Importance, dateDeadline: Date? = nil, isDone: Bool = false, dateСreation: Date = Date(), dateChanging: Date? = nil) {
         self.id = id
@@ -28,7 +28,7 @@ extension TodoItem {
     static func parse(json: Any) -> TodoItem? {
         guard let js = json as? [String: Any] else { return nil }
 
-        let importance = (js[JSONKeys.importance.rawValue] as? String).flatMap(Importance.init(rawValue: )) ?? .normal
+        let importance = (js[JSONKeys.importance.rawValue] as? String).flatMap(Importance.init(rawValue: )) ?? .ordinary
         let isDone = js[JSONKeys.isDone.rawValue] as? Bool ?? false
         let dateDeadline = (js[JSONKeys.dateDeadline.rawValue] as? Double).flatMap { Date(timeIntervalSince1970: $0) }
         let dateChanging = (js[JSONKeys.dateChanging.rawValue] as? Double).flatMap { Date(timeIntervalSince1970: $0) }
@@ -54,7 +54,7 @@ extension TodoItem {
 
         jsonDict[JSONKeys.id.rawValue] = self.id
         jsonDict[JSONKeys.text.rawValue] = self.text
-        if self.importance != .normal {
+        if self.importance != .ordinary {
             jsonDict[JSONKeys.importance.rawValue] = self.importance.rawValue
         }
         if let dateDeadline = self.dateDeadline {
@@ -76,7 +76,7 @@ extension TodoItem {
 
         let id = String(columns[0])
         let text = String(columns[1])
-        let importance = Importance(rawValue: columns[2]) ?? .normal
+        let importance = Importance(rawValue: columns[2]) ?? .ordinary
         let isDone = Bool(columns[4]) ?? false
         let dateDeadline = Double(columns[3]).flatMap { Date(timeIntervalSince1970: $0) }
         let dateChanging = Double(columns[6]).flatMap { Date(timeIntervalSince1970: $0) }
@@ -99,7 +99,7 @@ extension TodoItem {
 
         csvDataArray.append(self.id)
         csvDataArray.append(self.text)
-        if self.importance != .normal {
+        if self.importance != .ordinary {
             csvDataArray.append(self.importance.rawValue)
         } else {
             csvDataArray.append("")
@@ -126,7 +126,7 @@ extension TodoItem {
 
 enum Importance: String {
     case unimportant
-    case normal
+    case ordinary
     case important
     
     init?(rawValue: Int) {
@@ -134,7 +134,7 @@ enum Importance: String {
         case 0:
             self = .unimportant
         case 1:
-            self = .normal
+            self = .ordinary
         case 2:
             self = .important
         default:
@@ -146,7 +146,7 @@ enum Importance: String {
         switch self {
         case .unimportant:
             return 0
-        case .normal:
+        case .ordinary:
             return 1
         case .important:
             return 2

@@ -4,6 +4,10 @@ import Foundation
 
 final class FileCache {
     private(set) var todoItems: [String: TodoItem] = [:]
+    
+    func toArray() -> [TodoItem] {
+        return Array(todoItems.values)
+    }
 
     func add(_ item: TodoItem) {
         todoItems[item.id] = item
@@ -90,6 +94,26 @@ extension FileCache {
         }
     }
 }
+
+extension FileCache {
+    func saveArrayToJSON(todoItems: [TodoItem], to file: String) {
+        self.todoItems = Dictionary(uniqueKeysWithValues: todoItems.map({($0.id, $0)}))
+        do {
+            try self.saveToJSON(file: file)
+        } catch FileCacheErrors.DirectoryNotFound {
+            print(FileCacheErrors.DirectoryNotFound.rawValue)
+        } catch FileCacheErrors.JSONConvertationError {
+            print(FileCacheErrors.JSONConvertationError.rawValue)
+        } catch FileCacheErrors.PathToFileNotFound {
+            print(FileCacheErrors.PathToFileNotFound.rawValue)
+        } catch FileCacheErrors.WriteFileError {
+            print(FileCacheErrors.WriteFileError.rawValue)
+        } catch {
+            print("Другая ошибка при сохранении файла")
+        }
+    }
+}
+
 
 // MARK: - Enums
 
