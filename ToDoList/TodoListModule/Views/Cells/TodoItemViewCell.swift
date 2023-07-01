@@ -173,13 +173,13 @@ extension TodoItemViewCell {
         circleButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         
         mainStack.translatesAutoresizingMaskIntoConstraints = false
-        mainStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: edgeSize).isActive = true
+        mainStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Resources.Constants.edgeSize).isActive = true
         mainStack.leadingAnchor.constraint(equalTo: circleButton.trailingAnchor, constant: 12).isActive = true
-        mainStack.trailingAnchor.constraint(equalTo: arrowButton.leadingAnchor, constant: -edgeSize).isActive = true
-        mainStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -edgeSize).isActive = true
+        mainStack.trailingAnchor.constraint(equalTo: arrowButton.leadingAnchor, constant: -Resources.Constants.edgeSize).isActive = true
+        mainStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Resources.Constants.edgeSize).isActive = true
         
         arrowButton.translatesAutoresizingMaskIntoConstraints = false
-        arrowButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -edgeSize).isActive = true
+        arrowButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Resources.Constants.edgeSize).isActive = true
         arrowButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         arrowButton.widthAnchor.constraint(equalToConstant: 7).isActive = true
         arrowButton.heightAnchor.constraint(equalToConstant: 11).isActive = true
