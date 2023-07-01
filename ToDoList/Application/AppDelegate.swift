@@ -1,5 +1,6 @@
 import UIKit
 
+// swiftlint:disable line_length
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -17,3 +18,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+// swiftlint:enable line_length

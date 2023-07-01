@@ -1,4 +1,6 @@
 import UIKit
+// swiftlint:disable line_length
+// swiftlint:disable trailing_whitespace
 
 class TodoItemViewController: UIViewController {
     
@@ -323,3 +325,6 @@ extension TodoItemViewController {
         ])
     }
 }
+// swiftlint:enable line_length
+// swiftlint:enable trailing_whitespace
+

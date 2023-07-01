@@ -265,6 +265,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7840C24B2A33B4ED00EEA3AF /* Build configuration list for PBXNativeTarget "ToDoList" */;
 			buildPhases = (
+				B3765ED62A4FBE1200FE50D1 /* ShellScript */,
 				7840C21D2A33B4EC00EEA3AF /* Sources */,
 				7840C21E2A33B4EC00EEA3AF /* Frameworks */,
 				7840C21F2A33B4EC00EEA3AF /* Resources */,
@@ -397,6 +398,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B3765ED62A4FBE1200FE50D1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7840C21D2A33B4EC00EEA3AF /* Sources */ = {

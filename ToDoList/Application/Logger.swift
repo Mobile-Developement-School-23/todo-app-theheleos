@@ -18,7 +18,6 @@ class LoggerFormatter: NSObject, DDLogFormatter {
 class LoggerConfig {
 
     static func configureLogger() {
-        
         DDLog.add(DDOSLogger.sharedInstance)
         DDLog.add(DDFileLogger())
 

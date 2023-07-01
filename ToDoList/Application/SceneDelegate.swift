@@ -1,4 +1,5 @@
 import UIKit
+// swiftlint:disable trailing_whitespace
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -28,4 +29,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidEnterBackground(_ scene: UIScene) {
     }
 }
+
 

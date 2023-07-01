@@ -1,5 +1,6 @@
 @testable import ToDoList
 import XCTest
+// swiftlint:disable line_length
 
 final class ToDoItemTests: XCTestCase {
     // MARK: - TodoItem тесты
@@ -171,10 +172,8 @@ final class ToDoItemTests: XCTestCase {
 
         XCTAssertEqual(todoItemCsvHelper, "1;тест;;1100133188.0;false;1100133188.0;1100133188.0")
     }
-    
     func test_CsvNildateDeadline() throws {
         // Тест на проверку отсутсвия в csv dateDeadline, если он nil
-        
         let todoItemCsvHelper = TodoItem(id: "1", text: "тест", importance: .normal, isDone: false, dateСreation: Date(timeIntervalSince1970: 1100133188.0)).csv
         XCTAssertEqual(todoItemCsvHelper, "1;тест;;;false;1100133188.0;")
     }
@@ -208,3 +207,4 @@ final class ToDoItemTests: XCTestCase {
         XCTAssertEqual(todoItemHelperJson["date_changing"] as? Double, nil)
     }
 }
+// swiftlint: enable line_length
