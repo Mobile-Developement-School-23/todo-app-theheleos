@@ -177,7 +177,6 @@
 		7840C2232A33B4EC00EEA3AF /* ToDoList */ = {
 			isa = PBXGroup;
 			children = (
-				B3765EBE2A4F806200FE50D1 /* New Group */,
 				7840C2542A33B66100EEA3AF /* Application */,
 				B3765EBF2A4F80B500FE50D1 /* TodoListModule */,
 				7840C25E2A33D44E00EEA3AF /* TodoItemModule */,
@@ -257,13 +256,6 @@
 				B3765EAD2A4E25A400FE50D1 /* TodoItemViewController.swift */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		B3765EBE2A4F806200FE50D1 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		B3765EBF2A4F80B500FE50D1 /* TodoListModule */ = {
