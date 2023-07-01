@@ -221,35 +221,10 @@ class TodoItemViewController: UIViewController {
     }
     
     @objc func deleteTodoItem(sender: UIButton) {
-
-        fileCache.remove(with: currentTodoItem!.id)
-        do {
-            try fileCache.saveToJSON(file: Resources.Text.mainDataBaseFileName)
-        } catch FileCacheErrors.DirectoryNotFound {
-            print(FileCacheErrors.DirectoryNotFound.rawValue)
-        } catch FileCacheErrors.JSONConvertationError {
-            print(FileCacheErrors.JSONConvertationError.rawValue)
-        } catch FileCacheErrors.PathToFileNotFound {
-            print(FileCacheErrors.PathToFileNotFound.rawValue)
-        } catch FileCacheErrors.WriteFileError {
-            print(FileCacheErrors.WriteFileError.rawValue)
-        } catch {
-            print("Другая ошибка при сохранении файла, когда элемент удален")
+        if let completion = dataCompletionHandler {
+            completion(nil)
         }
-
-        currentTodoItem = nil
-
-        textView.text = Resources.Text.placeholderTitleForTextView
-        textView.textColor = Resources.Colors.tertiaryLabel
-        todoItemSettingsView.importanceSegmentControl.selectedSegmentIndex = 1
-
-        todoItemSettingsView.dateDeadlineButton.isHidden = true
-        todoItemSettingsView.calendarView.isHidden = true
-        todoItemSettingsView.secondSeparator.isHidden = true
-        todoItemSettingsView.deadLineSwtich.isOn = false
-        deleteButtonView.deleteButton.isEnabled = false
-        navigationItem.rightBarButtonItem?.isEnabled = false
-
+        dismiss(animated: true, completion: nil)
     }
     
     //MARK: - Animations

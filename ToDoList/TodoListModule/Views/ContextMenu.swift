@@ -13,14 +13,15 @@ extension TodoListViewController {
                 }
                 
                 let saveAction = UIAction(title: textSaveAction, image: imageSaveAction) { _ in
-                        self.itemDoneAction(indexPath.row)
-                        self.makeSave()
-                        tableView.reloadData()
+                    self.itemDoneAction(indexPath.row)
+                    self.makeSave()
+                    tableView.reloadData()
                 }
                 
                 let deleteAction = UIAction(title: "Delete", image: UIImage(systemName: "trash.fill")?.withTintColor(.red, renderingMode: .alwaysOriginal)) { _ in
                     self.todoItems.remove(at: indexPath.row)
-                    self.headerView.update(doneCount: self.todoItems.filter { $0.isDone }.count)
+                    let filteredTodoItemsCount = self.todoItems.filter { $0.isDone }.count
+                    self.headerView.update(doneCount: filteredTodoItemsCount == 0 ? self.doneTodoItems.count : filteredTodoItemsCount)
                     self.makeSave()
                     tableView.reloadData()
                 }

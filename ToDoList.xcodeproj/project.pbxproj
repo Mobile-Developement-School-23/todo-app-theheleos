@@ -31,12 +31,12 @@
 		B3765EAE2A4E25A400FE50D1 /* TodoItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765EAD2A4E25A400FE50D1 /* TodoItemViewController.swift */; };
 		B3765EB52A4E3BBC00FE50D1 /* DeleteButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765EB42A4E3BBC00FE50D1 /* DeleteButtonView.swift */; };
 		B3765EC42A4F812E00FE50D1 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765EC32A4F812E00FE50D1 /* TodoListViewController.swift */; };
-		B37AA0582A4FD3380025B51C /* TodoItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37AA0522A4FD3380025B51C /* TodoItemTableViewCell.swift */; };
-		B37AA0592A4FD3380025B51C /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37AA0532A4FD3380025B51C /* HeaderView.swift */; };
-		B37AA05A2A4FD3380025B51C /* CustomTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37AA0542A4FD3380025B51C /* CustomTransition.swift */; };
-		B37AA05B2A4FD3380025B51C /* ContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37AA0552A4FD3380025B51C /* ContextMenu.swift */; };
-		B37AA05C2A4FD3380025B51C /* PlusButtonConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37AA0562A4FD3380025B51C /* PlusButtonConfiguration.swift */; };
-		B37AA05D2A4FD3380025B51C /* TableViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37AA0572A4FD3380025B51C /* TableViewConfiguration.swift */; };
+		B37AA0702A4FE34A0025B51C /* ContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37AA06A2A4FE3490025B51C /* ContextMenu.swift */; };
+		B37AA0712A4FE34A0025B51C /* PlusButtonConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37AA06B2A4FE3490025B51C /* PlusButtonConfiguration.swift */; };
+		B37AA0722A4FE34A0025B51C /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37AA06C2A4FE3490025B51C /* HeaderView.swift */; };
+		B37AA0732A4FE34A0025B51C /* TodoItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37AA06D2A4FE3490025B51C /* TodoItemTableViewCell.swift */; };
+		B37AA0742A4FE34A0025B51C /* CustomTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37AA06E2A4FE3490025B51C /* CustomTransition.swift */; };
+		B37AA0752A4FE34A0025B51C /* TableViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37AA06F2A4FE3490025B51C /* TableViewConfiguration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,12 +85,12 @@
 		B3765EAD2A4E25A400FE50D1 /* TodoItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemViewController.swift; sourceTree = "<group>"; };
 		B3765EB42A4E3BBC00FE50D1 /* DeleteButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButtonView.swift; sourceTree = "<group>"; };
 		B3765EC32A4F812E00FE50D1 /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
-		B37AA0522A4FD3380025B51C /* TodoItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoItemTableViewCell.swift; sourceTree = "<group>"; };
-		B37AA0532A4FD3380025B51C /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
-		B37AA0542A4FD3380025B51C /* CustomTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTransition.swift; sourceTree = "<group>"; };
-		B37AA0552A4FD3380025B51C /* ContextMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextMenu.swift; sourceTree = "<group>"; };
-		B37AA0562A4FD3380025B51C /* PlusButtonConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlusButtonConfiguration.swift; sourceTree = "<group>"; };
-		B37AA0572A4FD3380025B51C /* TableViewConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewConfiguration.swift; sourceTree = "<group>"; };
+		B37AA06A2A4FE3490025B51C /* ContextMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextMenu.swift; sourceTree = "<group>"; };
+		B37AA06B2A4FE3490025B51C /* PlusButtonConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlusButtonConfiguration.swift; sourceTree = "<group>"; };
+		B37AA06C2A4FE3490025B51C /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		B37AA06D2A4FE3490025B51C /* TodoItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoItemTableViewCell.swift; sourceTree = "<group>"; };
+		B37AA06E2A4FE3490025B51C /* CustomTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTransition.swift; sourceTree = "<group>"; };
+		B37AA06F2A4FE3490025B51C /* TableViewConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewConfiguration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -285,12 +285,12 @@
 		B3765EC12A4F80F900FE50D1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B37AA0552A4FD3380025B51C /* ContextMenu.swift */,
-				B37AA0542A4FD3380025B51C /* CustomTransition.swift */,
-				B37AA0532A4FD3380025B51C /* HeaderView.swift */,
-				B37AA0562A4FD3380025B51C /* PlusButtonConfiguration.swift */,
-				B37AA0572A4FD3380025B51C /* TableViewConfiguration.swift */,
-				B37AA0522A4FD3380025B51C /* TodoItemTableViewCell.swift */,
+				B37AA06A2A4FE3490025B51C /* ContextMenu.swift */,
+				B37AA06E2A4FE3490025B51C /* CustomTransition.swift */,
+				B37AA06C2A4FE3490025B51C /* HeaderView.swift */,
+				B37AA06B2A4FE3490025B51C /* PlusButtonConfiguration.swift */,
+				B37AA06F2A4FE3490025B51C /* TableViewConfiguration.swift */,
+				B37AA06D2A4FE3490025B51C /* TodoItemTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -439,26 +439,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B37AA0712A4FE34A0025B51C /* PlusButtonConfiguration.swift in Sources */,
+				B37AA0722A4FE34A0025B51C /* HeaderView.swift in Sources */,
 				7840C2252A33B4EC00EEA3AF /* AppDelegate.swift in Sources */,
 				782D5AE02A467F3E00777655 /* Date+Extensions.swift in Sources */,
 				7840C2592A33B6FF00EEA3AF /* TodoItem.swift in Sources */,
 				782D5AD02A467E6E00777655 /* SeparatorLineView.swift in Sources */,
-				B37AA05C2A4FD3380025B51C /* PlusButtonConfiguration.swift in Sources */,
 				B3765EA22A4E0D8200FE50D1 /* UILabel+Extensions.swift in Sources */,
+				B37AA0742A4FE34A0025B51C /* CustomTransition.swift in Sources */,
 				B3765EA42A4E0F2A00FE50D1 /* NavBarElements.swift in Sources */,
-				B37AA0592A4FD3380025B51C /* HeaderView.swift in Sources */,
+				B37AA0702A4FE34A0025B51C /* ContextMenu.swift in Sources */,
+				B37AA0752A4FE34A0025B51C /* TableViewConfiguration.swift in Sources */,
 				782D5AE32A467F3E00777655 /* UIViewController+Extensions.swift in Sources */,
-				B37AA05B2A4FD3380025B51C /* ContextMenu.swift in Sources */,
-				B37AA05D2A4FD3380025B51C /* TableViewConfiguration.swift in Sources */,
 				B3765EA02A4DFCC400FE50D1 /* Resources.swift in Sources */,
+				B37AA0732A4FE34A0025B51C /* TodoItemTableViewCell.swift in Sources */,
 				782D5AE42A467F3E00777655 /* UIFont+Extensions.swift in Sources */,
 				B3765EC42A4F812E00FE50D1 /* TodoListViewController.swift in Sources */,
 				B3765EAA2A4E147500FE50D1 /* TodoItemSettingsView.swift in Sources */,
 				7840C2272A33B4EC00EEA3AF /* SceneDelegate.swift in Sources */,
-				B37AA05A2A4FD3380025B51C /* CustomTransition.swift in Sources */,
 				B3765EB52A4E3BBC00FE50D1 /* DeleteButtonView.swift in Sources */,
 				B3765EAE2A4E25A400FE50D1 /* TodoItemViewController.swift in Sources */,
-				B37AA0582A4FD3380025B51C /* TodoItemTableViewCell.swift in Sources */,
 				7840C2612A33D50900EEA3AF /* FileCache.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
