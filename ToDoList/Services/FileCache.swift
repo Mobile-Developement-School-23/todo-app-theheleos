@@ -1,4 +1,5 @@
 import Foundation
+import CocoaLumberjackSwift
 
 // MARK: - Class
 
@@ -6,14 +7,17 @@ final class FileCache {
     private(set) var todoItems: [String: TodoItem] = [:]
 
     func add(_ item: TodoItem) {
-        todoItems[item.id] = item
+        DDLogInfo("Added new ToDoItem with ID: \(item.id)")
+        return todoItems[item.id] = item
     }
 
     func remove(with id: String) -> TodoItem? {
         if let itemIntList = todoItems[id] {
             todoItems[id] = nil
+            DDLogInfo("Deleted ToDoItem with ID: \(id)")
             return itemIntList
         } else {
+            DDLogInfo("ID not found")
             return nil
         }
     }
@@ -33,6 +37,7 @@ extension FileCache {
         for jsonItem in jsonObject {
             if let parsedItem = TodoItem.parse(json: jsonItem) {
                 add(parsedItem)
+                DDLogInfo("Loaded ToDoItem with ID: \(parsedItem.id)")
             }
         }
     }
@@ -48,6 +53,7 @@ extension FileCache {
 
         do {
             try data.write(to: pathWithFileName)
+            DDLogInfo("Saved ToDoItems to JSON file: \(pathWithFileName)")
         } catch {
             throw FileCacheErrors.PathToFileNotFound
         }
@@ -67,6 +73,7 @@ extension FileCache {
         for row in rows {
             if let item = TodoItem.parse(csv: String(row)) {
                 add(item)
+                DDLogInfo("Loaded ToDoItem from CSV: \(item)")
             }
         }
     }
@@ -85,6 +92,7 @@ extension FileCache {
 
         do {
             try joinedString.write(to: pathWithFileName, atomically: true, encoding: .utf8)
+            DDLogInfo("Saved ToDoItems to CSV file: \(pathWithFileName)")
         } catch {
             throw FileCacheErrors.PathToFileNotFound
         }
@@ -94,10 +102,10 @@ extension FileCache {
 // MARK: - Enums
 
 enum FileCacheErrors: String, Error {
-    case DirectoryNotFound = "Директория файла не найдена, попробуйте поменять в fileCache папки"
-    case JSONConvertationError = "Ошибка с конвертацией JSON файла"
-    case PathToFileNotFound = "Путь до файла не найден, проверьте конечный путь"
-    case WriteFileError = "Ошибка при записи файла"
+    case DirectoryNotFound = "Директория файла не найдена"
+    case JSONConvertationError = "Ошибка с конвертацией JSON"
+    case PathToFileNotFound = "Путь до файла не найден"
+    case WriteFileError = "Ошибка записи файла"
 }
 
 private enum FileFormat: String {
@@ -107,3 +115,4 @@ private enum FileFormat: String {
 
 private let csvHeaderFormat = "id;text;importance;date_deadline;is_done;date_creation;date_changing"
 private let csvLineSeparator = "/r/n"
+

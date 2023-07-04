@@ -33,6 +33,7 @@
 		B37AA0822A53EEA50025B51C /* CocoaLumberjack in Frameworks */ = {isa = PBXBuildFile; productRef = B37AA0812A53EEA50025B51C /* CocoaLumberjack */; };
 		B37AA0842A53EEA50025B51C /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B37AA0832A53EEA50025B51C /* CocoaLumberjackSwift */; };
 		B37AA0862A53EEA50025B51C /* CocoaLumberjackSwiftLogBackend in Frameworks */ = {isa = PBXBuildFile; productRef = B37AA0852A53EEA50025B51C /* CocoaLumberjackSwiftLogBackend */; };
+		B37AA0882A53F0240025B51C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37AA0872A53F0240025B51C /* Logger.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		B3765EA92A4E147500FE50D1 /* TodoItemSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemSettingsView.swift; sourceTree = "<group>"; };
 		B3765EAD2A4E25A400FE50D1 /* TodoItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemViewController.swift; sourceTree = "<group>"; };
 		B3765EB42A4E3BBC00FE50D1 /* DeleteButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButtonView.swift; sourceTree = "<group>"; };
+		B37AA0872A53F0240025B51C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +183,7 @@
 				7840C25F2A33D4FB00EEA3AF /* Services */,
 				B3765E9F2A4DFCC400FE50D1 /* Resources.swift */,
 				7840C2552A33B67100EEA3AF /* SupportingFiles */,
+				B37AA0872A53F0240025B51C /* Logger.swift */,
 			);
 			path = ToDoList;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				B3765EA02A4DFCC400FE50D1 /* Resources.swift in Sources */,
 				782D5AE42A467F3E00777655 /* UIFont+Extensions.swift in Sources */,
 				B3765EAA2A4E147500FE50D1 /* TodoItemSettingsView.swift in Sources */,
+				B37AA0882A53F0240025B51C /* Logger.swift in Sources */,
 				7840C2272A33B4EC00EEA3AF /* SceneDelegate.swift in Sources */,
 				B3765EB52A4E3BBC00FE50D1 /* DeleteButtonView.swift in Sources */,
 				B3765EAE2A4E25A400FE50D1 /* TodoItemViewController.swift in Sources */,
