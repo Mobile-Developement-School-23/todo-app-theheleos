@@ -11,7 +11,15 @@ struct TodoItem {
     let dateСreation: Date
     let dateChanging: Date?
 
-    init(id: String = UUID().uuidString, text: String, importance: Importance, dateDeadline: Date? = nil, isDone: Bool = false, dateСreation: Date = Date(), dateChanging: Date? = nil) {
+    init(
+        id: String = UUID().uuidString,
+        text: String,
+        importance: Importance,
+        dateDeadline: Date? = nil,
+        isDone: Bool = false,
+        dateСreation: Date = Date(),
+        dateChanging: Date? = nil
+    ) {
         self.id = id
         self.text = text
         self.importance = importance
@@ -25,17 +33,19 @@ struct TodoItem {
 // MARK: - Extensions
 
 extension TodoItem {
-    static func parse(json: Any) -> TodoItem? {
-        guard let js = json as? [String: Any] else { return nil }
+    static func parse(JSON: Any) -> TodoItem? {
+        guard let json = JSON as? [String: Any] else { return nil }
 
-        let importance = (js[JSONKeys.importance.rawValue] as? String).flatMap(Importance.init(rawValue: )) ?? .normal
-        let isDone = js[JSONKeys.isDone.rawValue] as? Bool ?? false
-        let dateDeadline = (js[JSONKeys.dateDeadline.rawValue] as? Double).flatMap { Date(timeIntervalSince1970: $0) }
-        let dateChanging = (js[JSONKeys.dateChanging.rawValue] as? Double).flatMap { Date(timeIntervalSince1970: $0) }
+        let importance = (json[JSONKeys.importance.rawValue] as? String).flatMap(Importance.init(rawValue: )) ?? .normal
+        let isDone = json[JSONKeys.isDone.rawValue] as? Bool ?? false
+        let dateDeadline = (json[JSONKeys.dateDeadline.rawValue] as? Double).flatMap { Date(timeIntervalSince1970: $0) }
+        let dateChanging = (json[JSONKeys.dateChanging.rawValue] as? Double).flatMap { Date(timeIntervalSince1970: $0) }
 
-        guard let id = js[JSONKeys.id.rawValue] as? String,
-              let text = js[JSONKeys.text.rawValue] as? String,
-              let dateCreation = (js[JSONKeys.dateСreation.rawValue] as? Double).flatMap({ Date(timeIntervalSince1970: $0) })
+        guard let id = json[JSONKeys.id.rawValue] as? String,
+              let text = json[JSONKeys.text.rawValue] as? String,
+              let dateCreation = (json[JSONKeys.dateСreation.rawValue] as? Double).flatMap({
+                  Date(timeIntervalSince1970: $0)
+              })
         else {
             return nil
         }
@@ -81,17 +91,21 @@ extension TodoItem {
         let dateDeadline = Double(columns[3]).flatMap { Date(timeIntervalSince1970: $0) }
         let dateChanging = Double(columns[6]).flatMap { Date(timeIntervalSince1970: $0) }
 
-        guard !id.isEmpty, !text.isEmpty, let dateCreation = Double(columns[5]).flatMap({ Date(timeIntervalSince1970: $0) }) else {
+        guard !id.isEmpty, !text.isEmpty, let dateCreation = Double(columns[5]).flatMap({
+            Date(timeIntervalSince1970: $0)
+        }) else {
             return nil
         }
 
-        return TodoItem(id: id,
-                        text: text,
-                        importance: importance,
-                        dateDeadline: dateDeadline,
-                        isDone: isDone,
-                        dateСreation: dateCreation,
-                        dateChanging: dateChanging)
+        return TodoItem(
+            id: id,
+            text: text,
+            importance: importance,
+            dateDeadline: dateDeadline,
+            isDone: isDone,
+            dateСreation: dateCreation,
+            dateChanging: dateChanging
+        )
     }
 
     var csv: String {
@@ -128,7 +142,7 @@ enum Importance: String {
     case unimportant
     case normal
     case important
-    
+
     init?(rawValue: Int) {
         switch rawValue {
         case 0:
@@ -141,7 +155,7 @@ enum Importance: String {
             return nil
         }
     }
-    
+
     var value: Int {
         switch self {
         case .unimportant:
@@ -168,5 +182,3 @@ private enum CSVSeparator: String {
     case comma = ","
     case semicolon = ";"
 }
-
-
