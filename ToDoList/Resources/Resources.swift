@@ -1,7 +1,7 @@
 import UIKit
 
 enum Resources {
-    
+
     enum Constants {
         static let edgeSize: CGFloat = 16
         static let cornerRadius: CGFloat = 16
@@ -11,7 +11,7 @@ enum Resources {
         static let importanceSegmentControlWidth: CGFloat = 150
         static let separatorHeight: CGFloat = 1
         static let dateDeadlineButtonHeight: CGFloat = 18
-        
+
     }
     enum Text {
         static let todoItemNavBarTitle = "Дело"
@@ -24,19 +24,19 @@ enum Resources {
         static let deleteTitle = "Удалить"
         static let mainDataBaseFileName = "todoList"
     }
-    
+
     enum Colors {
         // Support
         static let separatorSupport = UIColor(named: "SeparatorSupport")
         static let overlaySupport = UIColor(named: "OverlaySupport")
         static let NavBarBlurSupport = UIColor(named: "NavBarBlurSupport")
-        
+
         // Label
         static let disableLabel = UIColor(named: "DisableLabel")
         static let primaryLabel = UIColor(named: "PrimaryLabel")
         static let secondaryLabel = UIColor(named: "SecondaryLabel")
         static let tertiaryLabel = UIColor(named: "TertiaryLabel")
-        
+
         // Color
         static let blueColor = UIColor(named: "Blue")
         static let grayColor = UIColor(named: "GrayColor")
@@ -44,7 +44,7 @@ enum Resources {
         static let greenColor = UIColor(named: "Green")
         static let redColor = UIColor(named: "Red")
         static let whiteColor = UIColor(named: "WhiteColor")
-        
+
         // Back
         static let elevatedBack = UIColor(named: "ElevatedBack")
         static let iosPrimaryBack = UIColor(named: "iOSPrimaryBack")
@@ -52,7 +52,7 @@ enum Resources {
         static let secondaryBack = UIColor(named: "SecondaryBack")
         static let color = ""
     }
-    
+
     enum Images {
         static var lowImportanceIcon = UIImage(named: "LowImportance") ?? UIImage()
         static var highImportanceIcon = UIImage(named: "HighImportance") ?? UIImage()

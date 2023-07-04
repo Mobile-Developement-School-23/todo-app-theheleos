@@ -1,7 +1,7 @@
 import UIKit
 
 class DeleteButtonView: UIView {
-    
+
     let deleteButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(Resources.Text.deleteTitle, for: .normal)
@@ -18,27 +18,27 @@ class DeleteButtonView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        
+
         setupLayout()
         setConstraints()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func setupLayout() {
         backgroundColor = Resources.Colors.secondaryBack
         layer.cornerRadius = Resources.Constants.cornerRadius
         translatesAutoresizingMaskIntoConstraints = false
-        
+
         addSubview(deleteButton)
     }
-    
+
     func deleteButtonIsEnabled(enable: Bool) {
         deleteButton.isEnabled = enable
     }
-    
+
     private func setConstraints() {
         NSLayoutConstraint.activate([
             deleteButton.topAnchor.constraint(equalTo: topAnchor),
@@ -47,6 +47,4 @@ class DeleteButtonView: UIView {
             deleteButton.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
-
-
 }
