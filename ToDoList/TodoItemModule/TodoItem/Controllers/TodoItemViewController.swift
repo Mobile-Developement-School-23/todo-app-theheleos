@@ -1,4 +1,5 @@
 import UIKit
+import TodoItem
 
 class TodoItemViewController: UIViewController {
 
@@ -103,7 +104,7 @@ class TodoItemViewController: UIViewController {
         }
 
         if !fileCache.todoItems.isEmpty {
-            currentTodoItem = fileCache.todoItems.first!.value
+            currentTodoItem = fileCache.todoItems.first?.value
         }
     }
 
@@ -150,6 +151,7 @@ class TodoItemViewController: UIViewController {
         let importance = Importance(
             rawValue: todoItemSettingsView.importanceSegmentControl.selectedSegmentIndex
         ) ?? .normal
+
         let deadLineSwtichIsOn = todoItemSettingsView.deadLineSwtich.isOn
         if deadLineSwtichIsOn {
             dateDeadline = todoItemSettingsView.calendarView.date

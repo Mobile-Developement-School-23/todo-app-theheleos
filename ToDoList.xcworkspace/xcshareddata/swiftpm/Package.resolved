@@ -17,6 +17,15 @@
         "revision" : "32e8d724467f8fe623624570367e3d50c5638e46",
         "version" : "1.5.2"
       }
+    },
+    {
+      "identity" : "todoitemremotelibrary",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/theheleos/TodoItemRemoteLibrary.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "b62541f5ad81341334471293dea5fef21d7b03ca"
+      }
     }
   ],
   "version" : 2

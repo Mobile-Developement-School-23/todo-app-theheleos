@@ -21,9 +21,9 @@
 		7840C2312A33B4ED00EEA3AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7840C22F2A33B4ED00EEA3AF /* LaunchScreen.storyboard */; };
 		7840C2462A33B4ED00EEA3AF /* ToDoListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7840C2452A33B4ED00EEA3AF /* ToDoListUITests.swift */; };
 		7840C2482A33B4ED00EEA3AF /* ToDoListUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7840C2472A33B4ED00EEA3AF /* ToDoListUITestsLaunchTests.swift */; };
-		7840C2592A33B6FF00EEA3AF /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7840C2582A33B6FF00EEA3AF /* TodoItem.swift */; };
 		7840C2612A33D50900EEA3AF /* FileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7840C2602A33D50900EEA3AF /* FileCache.swift */; };
 		7840C27A2A350A4600EEA3AF /* ToDoItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7840C2792A350A4600EEA3AF /* ToDoItemTests.swift */; };
+		B3759DFA2A5445AE00AF90C9 /* TodoItem in Frameworks */ = {isa = PBXBuildFile; productRef = B3759DF92A5445AE00AF90C9 /* TodoItem */; };
 		B3765EA02A4DFCC400FE50D1 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765E9F2A4DFCC400FE50D1 /* Resources.swift */; };
 		B3765EA22A4E0D8200FE50D1 /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765EA12A4E0D8200FE50D1 /* UILabel+Extensions.swift */; };
 		B3765EA42A4E0F2A00FE50D1 /* NavBarElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765EA32A4E0F2A00FE50D1 /* NavBarElements.swift */; };
@@ -77,7 +77,6 @@
 		7840C2412A33B4ED00EEA3AF /* ToDoListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToDoListUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7840C2452A33B4ED00EEA3AF /* ToDoListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListUITests.swift; sourceTree = "<group>"; };
 		7840C2472A33B4ED00EEA3AF /* ToDoListUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		7840C2582A33B6FF00EEA3AF /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
 		7840C2602A33D50900EEA3AF /* FileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCache.swift; sourceTree = "<group>"; };
 		7840C2792A350A4600EEA3AF /* ToDoItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItemTests.swift; sourceTree = "<group>"; };
 		B3765E9F2A4DFCC400FE50D1 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
@@ -96,6 +95,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B37AA0842A53EEA50025B51C /* CocoaLumberjackSwift in Frameworks */,
+				B3759DFA2A5445AE00AF90C9 /* TodoItem in Frameworks */,
 				B37AA0862A53EEA50025B51C /* CocoaLumberjackSwiftLogBackend in Frameworks */,
 				B37AA0822A53EEA50025B51C /* CocoaLumberjack in Frameworks */,
 			);
@@ -243,7 +243,6 @@
 		7840C2562A33B6CC00EEA3AF /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				7840C2582A33B6FF00EEA3AF /* TodoItem.swift */,
 				B3765EA32A4E0F2A00FE50D1 /* NavBarElements.swift */,
 			);
 			path = Models;
@@ -316,6 +315,7 @@
 				B37AA0812A53EEA50025B51C /* CocoaLumberjack */,
 				B37AA0832A53EEA50025B51C /* CocoaLumberjackSwift */,
 				B37AA0852A53EEA50025B51C /* CocoaLumberjackSwiftLogBackend */,
+				B3759DF92A5445AE00AF90C9 /* TodoItem */,
 			);
 			productName = ToDoList;
 			productReference = 7840C2212A33B4EC00EEA3AF /* ToDoList.app */;
@@ -396,6 +396,7 @@
 			mainGroup = 7840C2182A33B4EC00EEA3AF;
 			packageReferences = (
 				B37AA0802A53EEA50025B51C /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
+				B3759DF82A5445AE00AF90C9 /* XCRemoteSwiftPackageReference "TodoItemRemoteLibrary" */,
 			);
 			productRefGroup = 7840C2222A33B4EC00EEA3AF /* Products */;
 			projectDirPath = "";
@@ -532,7 +533,6 @@
 			files = (
 				7840C2252A33B4EC00EEA3AF /* AppDelegate.swift in Sources */,
 				782D5AE02A467F3E00777655 /* Date+Extensions.swift in Sources */,
-				7840C2592A33B6FF00EEA3AF /* TodoItem.swift in Sources */,
 				782D5AD02A467E6E00777655 /* SeparatorLineView.swift in Sources */,
 				B3765EA22A4E0D8200FE50D1 /* UILabel+Extensions.swift in Sources */,
 				B3765EA42A4E0F2A00FE50D1 /* NavBarElements.swift in Sources */,
@@ -906,6 +906,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B3759DF82A5445AE00AF90C9 /* XCRemoteSwiftPackageReference "TodoItemRemoteLibrary" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/theheleos/TodoItemRemoteLibrary.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		B37AA0802A53EEA50025B51C /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CocoaLumberjack/CocoaLumberjack.git";
@@ -917,6 +925,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B3759DF92A5445AE00AF90C9 /* TodoItem */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B3759DF82A5445AE00AF90C9 /* XCRemoteSwiftPackageReference "TodoItemRemoteLibrary" */;
+			productName = TodoItem;
+		};
 		B37AA0812A53EEA50025B51C /* CocoaLumberjack */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B37AA0802A53EEA50025B51C /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;

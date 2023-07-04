@@ -1,5 +1,6 @@
 import Foundation
 import CocoaLumberjackSwift
+import TodoItem
 
 // MARK: - Class
 
