@@ -73,7 +73,7 @@ class TodoItemViewController: UIViewController {
 
         navigationController!.navigationBar.titleTextAttributes = [
             NSAttributedString.Key.font: UIFont.headline ?? .systemFont(ofSize: 17),
-            NSAttributedString.Key.foregroundColor: Resources.Colors.primaryLabel ?? .black
+            NSAttributedString.Key.foregroundColor: Resources.Colors.primaryLabel
         ]
 
         addNavBarButtons()

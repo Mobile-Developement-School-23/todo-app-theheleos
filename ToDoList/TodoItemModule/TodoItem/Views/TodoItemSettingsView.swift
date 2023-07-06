@@ -139,7 +139,7 @@ class TodoItemSettingsView: UIView {
 
     private func setupLayout() {
         layer.cornerRadius = Resources.Constants.cornerRadius
-        layer.backgroundColor = Resources.Colors.secondaryBack?.cgColor
+        layer.backgroundColor = Resources.Colors.secondaryBack.cgColor
         translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(settingsStackView)

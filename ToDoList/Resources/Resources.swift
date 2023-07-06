@@ -27,34 +27,44 @@ enum Resources {
 
     enum Colors {
         // Support
-        static let separatorSupport = UIColor(named: "SeparatorSupport")
-        static let overlaySupport = UIColor(named: "OverlaySupport")
-        static let NavBarBlurSupport = UIColor(named: "NavBarBlurSupport")
+        static let separatorSupport = UIColor(named: "SeparatorSupport") ?? .systemRed
+        static let overlaySupport = UIColor(named: "OverlaySupport") ?? .systemRed
+        static let NavBarBlurSupport = UIColor(named: "NavBarBlurSupport") ?? .systemRed
 
         // Label
-        static let disableLabel = UIColor(named: "DisableLabel")
-        static let primaryLabel = UIColor(named: "PrimaryLabel")
-        static let secondaryLabel = UIColor(named: "SecondaryLabel")
-        static let tertiaryLabel = UIColor(named: "TertiaryLabel")
+        static let disableLabel = UIColor(named: "DisableLabel") ?? .systemRed
+        static let primaryLabel = UIColor(named: "PrimaryLabel") ?? .systemRed
+        static let secondaryLabel = UIColor(named: "SecondaryLabel") ?? .systemRed
+        static let tertiaryLabel = UIColor(named: "TertiaryLabel") ?? .systemRed
 
         // Color
-        static let blueColor = UIColor(named: "Blue")
-        static let grayColor = UIColor(named: "GrayColor")
-        static let grayLightColor = UIColor(named: "GrayLightColor")
-        static let greenColor = UIColor(named: "Green")
-        static let redColor = UIColor(named: "Red")
-        static let whiteColor = UIColor(named: "WhiteColor")
+        static let blueColor = UIColor(named: "Blue") ?? .systemRed
+        static let grayColor = UIColor(named: "GrayColor") ?? .systemRed
+        static let grayLightColor = UIColor(named: "GrayLightColor") ?? .systemRed
+        static let greenColor = UIColor(named: "Green") ?? .systemRed
+        static let redColor = UIColor(named: "Red") ?? .systemRed
+        static let whiteColor = UIColor(named: "WhiteColor") ?? .systemRed
 
         // Back
-        static let elevatedBack = UIColor(named: "ElevatedBack")
-        static let iosPrimaryBack = UIColor(named: "iOSPrimaryBack")
-        static let primaryBack = UIColor(named: "PrimaryBack")
-        static let secondaryBack = UIColor(named: "SecondaryBack")
+        static let elevatedBack = UIColor(named: "ElevatedBack") ?? .systemRed
+        static let iosPrimaryBack = UIColor(named: "iOSPrimaryBack") ?? .systemRed
+        static let primaryBack = UIColor(named: "PrimaryBack") ?? .systemRed
+        static let secondaryBack = UIColor(named: "SecondaryBack") ?? .systemRed
         static let color = ""
     }
 
     enum Images {
-        static var lowImportanceIcon = UIImage(named: "LowImportance") ?? UIImage()
-        static var highImportanceIcon = UIImage(named: "HighImportance") ?? UIImage()
+        static let lowImportanceIcon = UIImage(named: "LowImportance") ?? UIImage()
+        static let highImportanceIcon = UIImage(named: "HighImportance") ?? UIImage()
+        static let cellArrow = UIImage(named: "CellArrow") ?? UIImage()
+        static let calendarImage = UIImage(systemName: "calendar")?
+            .withTintColor(Resources.Colors.secondaryLabel, renderingMode: .alwaysOriginal)
+
+        static let checkMarkImage = UIImage(systemName: "circle")?
+            .withTintColor(Resources.Colors.secondaryLabel, renderingMode: .alwaysOriginal) ?? UIImage()
+        static let checkHighImportanceMarkImage = UIImage(systemName: "circle")?
+            .withTintColor(Resources.Colors.redColor, renderingMode: .alwaysOriginal) ?? UIImage()
+        static let checkDoneMarkImage = UIImage(systemName: "checkmark.circle.fill")?
+            .withTintColor(Resources.Colors.greenColor, renderingMode: .alwaysOriginal) ?? UIImage()
     }
 }
