@@ -2,19 +2,27 @@ import UIKit
 
 class HeaderView: UIView {
 
-    let doneTaskCountLabel = UILabel(text: "", textColor: Resources.Colors.tertiaryLabel, font: .subhead)
-    let showButton: UIButton = {
-        let butotn = UIButton(type: .system)
+    private let doneTaskCountLabel = UILabel(text: "", textColor: Resources.Colors.tertiaryLabel, font: .subhead)
+    private lazy var showButton: UIButton = {
+        let butotn = UIButton()
         butotn.setTitle("Показать", for: .normal)
-        butotn.setTitle("Скрвть", for: .selected)
+        butotn.setTitle("Скрыть", for: .selected)
+        butotn.titleLabel?.font = .boldSystemFont(ofSize: 15)
+        butotn.setTitleColor(Resources.Colors.blueColor, for: .normal)
+        butotn.addTarget(self, action: #selector(showButtonTap), for: .touchUpInside)
+        butotn.translatesAutoresizingMaskIntoConstraints = false
         return butotn
     }()
-    private let headerStack = UIStackView()
+
     var doneTaskCount = 0
-    var areDoneCellsHidden = false
+    var areDoneCellsHidden = true
+    var change: ((Bool) -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+
+        setupViews()
+        setConstraints()
     }
 
     required init?(coder: NSCoder) {
@@ -22,26 +30,41 @@ class HeaderView: UIView {
     }
 
     private func setupViews() {
-        addSubview(headerStack)
-        headerStack.translatesAutoresizingMaskIntoConstraints = false
 
-        headerStack.addArrangedSubview(doneTaskCountLabel)
-        headerStack.addArrangedSubview(showButton)
+        addSubview(doneTaskCountLabel)
+        addSubview(showButton)
 
         doneTaskCountLabel.text = "Выполнено - \(doneTaskCount)"
     }
 
     func update(doneItemsCount: Int = 0) {
         self.doneTaskCount = doneItemsCount
-        doneTaskCountLabel.text = "Выполнено - \(doneTaskCount)"
+        self.doneTaskCountLabel.text = "Выполнено - \(doneTaskCount)"
+    }
+
+    // MARK: - objc Methods
+    @objc func showButtonTap() {
+        showButton.isSelected = areDoneCellsHidden
+
+        areDoneCellsHidden = !areDoneCellsHidden
+        if areDoneCellsHidden {
+            if let completion = change {
+                completion(true)
+            }
+        } else {
+            if let completion = change {
+                completion(false)
+            }
+        }
     }
 
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            headerStack.topAnchor.constraint(equalTo: topAnchor),
-            headerStack.leadingAnchor.constraint(equalTo: leadingAnchor),
-            headerStack.trailingAnchor.constraint(equalTo: trailingAnchor),
-            headerStack.bottomAnchor.constraint(equalTo: bottomAnchor)
+            doneTaskCountLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 2 * Resources.Constants.edgeSize),
+            doneTaskCountLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+
+            showButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -2 * Resources.Constants.edgeSize),
+            showButton.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
 
     }

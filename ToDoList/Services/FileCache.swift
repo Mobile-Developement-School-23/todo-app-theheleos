@@ -81,6 +81,15 @@ extension FileCache {
             throw FileCacheErrors.pathToFileNotFound
         }
     }
+
+    func saveArrayToJSON(todoItems: [TodoItem], to file: String) {
+        self.todoItems = Dictionary(uniqueKeysWithValues: todoItems.map({($0.id, $0)}))
+        do {
+            try self.saveToJSON(file: file)
+        } catch {
+            print("Oшибка при сохранении файла")
+        }
+    }
 }
 
 extension FileCache {

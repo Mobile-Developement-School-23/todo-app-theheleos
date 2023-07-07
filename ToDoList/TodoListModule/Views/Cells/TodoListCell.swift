@@ -29,7 +29,6 @@ class TodoListCell: UITableViewCell {
     }()
     private let importanceImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = Resources.Images.highImportanceIcon
         imageView.isHidden = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -63,7 +62,7 @@ class TodoListCell: UITableViewCell {
     }()
     private let mainStack: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .horizontal
+        stackView.axis = .vertical
         stackView.spacing = 2
         stackView.alignment = .top
 
@@ -76,9 +75,6 @@ class TodoListCell: UITableViewCell {
 
         setupViews()
         setConstraints()
-
-        itemTextLabel.text = "fhjdsafhnljkdasnhflkdsfjlaksfnlasdflfdasf fdaf"
-        deadlineStack.isHidden = false
     }
 
     required init?(coder: NSCoder) {
@@ -114,11 +110,11 @@ class TodoListCell: UITableViewCell {
             checkMarkButton.isHidden = true
             importanceImageView.isHidden = true
         } else {
-            itemTextLabel.text = item.text
+            itemTextLabel.attributedText = NSAttributedString(string: item.text)
+            itemTextLabel.textColor = Resources.Colors.primaryLabel
 
             switch item.importance {
             case .important:
-                importanceImageView.isHidden = false
                 importanceImageView.image = Resources.Images.highImportanceIcon
                 checkMarkButton.setImage(
                     Resources.Images.checkHighImportanceMarkImage,
@@ -126,18 +122,31 @@ class TodoListCell: UITableViewCell {
                 )
             case .normal:
                 importanceImageView.isHidden = true
+                checkMarkButton.setImage(
+                    Resources.Images.checkMarkImage,
+                    for: .normal
+                )
             case .unimportant:
-                importanceImageView.isHidden = false
                 importanceImageView.image = Resources.Images.lowImportanceIcon
+                checkMarkButton.setImage(
+                    Resources.Images.checkMarkImage,
+                    for: .normal
+                )
             }
 
             if let deadline = item.dateDeadline {
                 deadlineStack.isHidden = false
                 deadlineLabel.text = deadline.toString(with: "d MMMM")
+            } else {
+                deadlineStack.isHidden = true
             }
 
+            chevroneButton.isHidden = false
+            checkMarkButton.isHidden = false
+            importanceImageView.isHidden = false
+
             if item.isDone {
-                chevroneButton.setImage(
+                checkMarkButton.setImage(
                     Resources.Images.checkDoneMarkImage,
                      for: .normal)
                 itemTextLabel.attributedText = NSAttributedString(
@@ -145,6 +154,11 @@ class TodoListCell: UITableViewCell {
                     attributes: [NSAttributedString.Key.strikethroughStyle: 1]
                 )
                 itemTextLabel.textColor = Resources.Colors.tertiaryLabel
+            } else {
+                itemTextLabel.attributedText = NSAttributedString(
+                    string: item.text,
+                    attributes: [NSAttributedString.Key.strikethroughStyle: 0]
+                )
             }
         }
     }
@@ -162,7 +176,7 @@ extension TodoListCell {
 
             chevroneButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             chevroneButton.trailingAnchor.constraint(
-                equalTo: trailingAnchor,
+                equalTo: contentView.safeAreaLayoutGuide.trailingAnchor,
                 constant: -Resources.Constants.edgeSize
             ),
 

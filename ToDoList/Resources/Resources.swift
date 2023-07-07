@@ -38,11 +38,11 @@ enum Resources {
         static let tertiaryLabel = UIColor(named: "TertiaryLabel") ?? .systemRed
 
         // Color
-        static let blueColor = UIColor(named: "Blue") ?? .systemRed
+        static let blueColor = UIColor(named: "BlueColor") ?? .systemRed
         static let grayColor = UIColor(named: "GrayColor") ?? .systemRed
-        static let grayLightColor = UIColor(named: "GrayLightColor") ?? .systemRed
-        static let greenColor = UIColor(named: "Green") ?? .systemRed
-        static let redColor = UIColor(named: "Red") ?? .systemRed
+        static let grayLightColor = UIColor(named: "LightGrayColor") ?? .systemRed
+        static let greenColor = UIColor(named: "GreenColor") ?? .systemRed
+        static let redColor = UIColor(named: "RedColor") ?? .systemRed
         static let whiteColor = UIColor(named: "WhiteColor") ?? .systemRed
 
         // Back
@@ -57,14 +57,20 @@ enum Resources {
         static let lowImportanceIcon = UIImage(named: "LowImportance") ?? UIImage()
         static let highImportanceIcon = UIImage(named: "HighImportance") ?? UIImage()
         static let cellArrow = UIImage(named: "CellArrow") ?? UIImage()
+        static let plusButton = UIImage(named: "PlusButton") ?? UIImage()
+
         static let calendarImage = UIImage(systemName: "calendar")?
             .withTintColor(Resources.Colors.secondaryLabel, renderingMode: .alwaysOriginal)
-
         static let checkMarkImage = UIImage(systemName: "circle")?
             .withTintColor(Resources.Colors.secondaryLabel, renderingMode: .alwaysOriginal) ?? UIImage()
         static let checkHighImportanceMarkImage = UIImage(systemName: "circle")?
             .withTintColor(Resources.Colors.redColor, renderingMode: .alwaysOriginal) ?? UIImage()
         static let checkDoneMarkImage = UIImage(systemName: "checkmark.circle.fill")?
             .withTintColor(Resources.Colors.greenColor, renderingMode: .alwaysOriginal) ?? UIImage()
+        static let trashImage = UIImage(systemName: "trash.fill")?
+            .withTintColor(.white, renderingMode: .alwaysOriginal) ?? UIImage()
+        static let fillCheckmarkCircle = UIImage(systemName: "checkmark.circle.fill")?
+            .withTintColor(.white, renderingMode: .alwaysOriginal) ?? UIImage()
+
     }
 }

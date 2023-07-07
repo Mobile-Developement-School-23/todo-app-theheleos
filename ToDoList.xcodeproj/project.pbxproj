@@ -27,6 +27,8 @@
 		B3759E052A545C2B00AF90C9 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3759E042A545C2B00AF90C9 /* TodoListViewController.swift */; };
 		B3759E092A546E0400AF90C9 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3759E082A546E0400AF90C9 /* HeaderView.swift */; };
 		B3759E5C2A56CD2B00AF90C9 /* TodoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3759E5B2A56CD2B00AF90C9 /* TodoListCell.swift */; };
+		B3759E5F2A57563D00AF90C9 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3759E5E2A57563D00AF90C9 /* TodoItem.swift */; };
+		B3759E612A57BE3700AF90C9 /* CustomTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3759E602A57BE3700AF90C9 /* CustomTransition.swift */; };
 		B3765EA02A4DFCC400FE50D1 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765E9F2A4DFCC400FE50D1 /* Resources.swift */; };
 		B3765EA22A4E0D8200FE50D1 /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765EA12A4E0D8200FE50D1 /* UILabel+Extensions.swift */; };
 		B3765EA42A4E0F2A00FE50D1 /* NavBarElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765EA32A4E0F2A00FE50D1 /* NavBarElements.swift */; };
@@ -85,6 +87,8 @@
 		B3759E042A545C2B00AF90C9 /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
 		B3759E082A546E0400AF90C9 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		B3759E5B2A56CD2B00AF90C9 /* TodoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListCell.swift; sourceTree = "<group>"; };
+		B3759E5E2A57563D00AF90C9 /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
+		B3759E602A57BE3700AF90C9 /* CustomTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTransition.swift; sourceTree = "<group>"; };
 		B3765E9F2A4DFCC400FE50D1 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		B3765EA12A4E0D8200FE50D1 /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		B3765EA32A4E0F2A00FE50D1 /* NavBarElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarElements.swift; sourceTree = "<group>"; };
@@ -206,6 +210,7 @@
 				7840C2552A33B67100EEA3AF /* SupportingFiles */,
 				B37AA08B2A5426D30025B51C /* Resources */,
 				B37AA0872A53F0240025B51C /* Logger.swift */,
+				B3759E5E2A57563D00AF90C9 /* TodoItem.swift */,
 			);
 			path = ToDoList;
 			sourceTree = "<group>";
@@ -307,6 +312,7 @@
 			children = (
 				B3759E5D2A56CD2E00AF90C9 /* Cells */,
 				B3759E082A546E0400AF90C9 /* HeaderView.swift */,
+				B3759E602A57BE3700AF90C9 /* CustomTransition.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -585,11 +591,13 @@
 				782D5AD02A467E6E00777655 /* SeparatorLineView.swift in Sources */,
 				B3765EA22A4E0D8200FE50D1 /* UILabel+Extensions.swift in Sources */,
 				B3765EA42A4E0F2A00FE50D1 /* NavBarElements.swift in Sources */,
+				B3759E612A57BE3700AF90C9 /* CustomTransition.swift in Sources */,
 				782D5AE32A467F3E00777655 /* UIViewController+Extensions.swift in Sources */,
 				B3765EA02A4DFCC400FE50D1 /* Resources.swift in Sources */,
 				782D5AE42A467F3E00777655 /* UIFont+Extensions.swift in Sources */,
 				B3765EAA2A4E147500FE50D1 /* TodoItemSettingsView.swift in Sources */,
 				B3759E052A545C2B00AF90C9 /* TodoListViewController.swift in Sources */,
+				B3759E5F2A57563D00AF90C9 /* TodoItem.swift in Sources */,
 				B37AA0882A53F0240025B51C /* Logger.swift in Sources */,
 				7840C2272A33B4EC00EEA3AF /* SceneDelegate.swift in Sources */,
 				B3759E5C2A56CD2B00AF90C9 /* TodoListCell.swift in Sources */,
