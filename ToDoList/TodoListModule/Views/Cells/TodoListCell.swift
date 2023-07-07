@@ -112,6 +112,7 @@ class TodoListCell: UITableViewCell {
 
             switch item.importance {
             case .important:
+                importanceImageView.isHidden = false
                 importanceImageView.image = Resources.Images.highImportanceIcon
                 checkMarkButton.setImage(
                     Resources.Images.checkHighImportanceMarkImage, for: .normal
@@ -123,6 +124,7 @@ class TodoListCell: UITableViewCell {
                 )
             case .unimportant:
                 importanceImageView.image = Resources.Images.lowImportanceIcon
+
                 checkMarkButton.setImage(
                     Resources.Images.checkMarkImage, for: .normal
                 )
@@ -135,12 +137,11 @@ class TodoListCell: UITableViewCell {
                 deadlineStack.isHidden = true
             }
 
-            [chevroneButton, checkMarkButton, importanceImageView].forEach { $0.isHidden = false }
+            [chevroneButton, checkMarkButton].forEach { $0.isHidden = false }
 
             if item.isDone {
                 checkMarkButton.setImage(
-                    Resources.Images.checkDoneMarkImage,
-                     for: .normal)
+                    Resources.Images.checkDoneMarkImage, for: .normal)
                 itemTextLabel.attributedText = NSAttributedString(
                     string: item.text,
                     attributes: [NSAttributedString.Key.strikethroughStyle: 1]
