@@ -63,7 +63,6 @@ class TodoListViewController: UIViewController {
             if areDoneCellsHiden {
                 self.removeDoneTodoItems()
                 self.todoListTableView.reloadData()
-                print("areaFODODOFJHODSHFIOSH")
             } else {
                 self.addDoneItems()
                 self.todoListTableView.reloadData()
