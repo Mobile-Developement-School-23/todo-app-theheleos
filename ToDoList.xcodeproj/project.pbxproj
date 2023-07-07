@@ -30,6 +30,7 @@
 		B3759E5F2A57563D00AF90C9 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3759E5E2A57563D00AF90C9 /* TodoItem.swift */; };
 		B3759E612A57BE3700AF90C9 /* CustomTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3759E602A57BE3700AF90C9 /* CustomTransition.swift */; };
 		B3759E662A58014400AF90C9 /* PreviewMechanism.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3759E652A58014400AF90C9 /* PreviewMechanism.swift */; };
+		B3759E682A581B8F00AF90C9 /* URLSession+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3759E672A581B8F00AF90C9 /* URLSession+Extensions.swift */; };
 		B3765EA02A4DFCC400FE50D1 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765E9F2A4DFCC400FE50D1 /* Resources.swift */; };
 		B3765EA22A4E0D8200FE50D1 /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765EA12A4E0D8200FE50D1 /* UILabel+Extensions.swift */; };
 		B3765EA42A4E0F2A00FE50D1 /* NavBarElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3765EA32A4E0F2A00FE50D1 /* NavBarElements.swift */; };
@@ -91,6 +92,7 @@
 		B3759E5E2A57563D00AF90C9 /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
 		B3759E602A57BE3700AF90C9 /* CustomTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTransition.swift; sourceTree = "<group>"; };
 		B3759E652A58014400AF90C9 /* PreviewMechanism.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewMechanism.swift; sourceTree = "<group>"; };
+		B3759E672A581B8F00AF90C9 /* URLSession+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Extensions.swift"; sourceTree = "<group>"; };
 		B3765E9F2A4DFCC400FE50D1 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		B3765EA12A4E0D8200FE50D1 /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		B3765EA32A4E0F2A00FE50D1 /* NavBarElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarElements.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				782D5ADE2A467F3E00777655 /* UIViewController+Extensions.swift */,
 				782D5ADF2A467F3E00777655 /* UIFont+Extensions.swift */,
 				B3765EA12A4E0D8200FE50D1 /* UILabel+Extensions.swift */,
+				B3759E672A581B8F00AF90C9 /* URLSession+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -609,6 +612,7 @@
 				B3765EAE2A4E25A400FE50D1 /* TodoItemViewController.swift in Sources */,
 				7840C2612A33D50900EEA3AF /* FileCache.swift in Sources */,
 				B3759E092A546E0400AF90C9 /* HeaderView.swift in Sources */,
+				B3759E682A581B8F00AF90C9 /* URLSession+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
