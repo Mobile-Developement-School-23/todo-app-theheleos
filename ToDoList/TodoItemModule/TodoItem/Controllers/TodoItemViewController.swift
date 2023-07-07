@@ -24,18 +24,19 @@ class TodoItemViewController: UIViewController {
 
     private var currentTodoItem: TodoItem?
     private let fileCache = FileCache()
+    var dataCompletionHandler: ((TodoItem?) -> Void)?
 
     // MARK: - Initializators
 
     init(item: TodoItem?) {
         super.init(nibName: nil, bundle: nil)
+        currentTodoItem = item
     }
 
     convenience init() {
         self.init(item: nil)
     }
 
-    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -43,13 +44,13 @@ class TodoItemViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupLayout()
+        setupViews()
         setConstraints()
     }
 
 // MARK: - Setup Layout
 
-    private func setupLayout() {
+    private func setupViews() {
         view.backgroundColor = Resources.Colors.primaryBack
 
         setupNavBar()
@@ -62,67 +63,24 @@ class TodoItemViewController: UIViewController {
 
         textView.delegate = self
 
-        makeLoad()
-        setValues()
+        todoItemSetup()
 
         hideKeyboardWhenTappedAround()
     }
 
-    private func setupNavBar() {
-        title = Resources.Text.todoItemNavBarTitle
-
-        navigationController!.navigationBar.titleTextAttributes = [
-            NSAttributedString.Key.font: UIFont.headline ?? .systemFont(ofSize: 17),
-            NSAttributedString.Key.foregroundColor: Resources.Colors.primaryLabel ?? .black
-        ]
-
-        addNavBarButtons()
-    }
-
-        private func addNavBarButtons() {
-            let leftButton = UIButton(type: .system)
-            leftButton.setTitleColor(Resources.Colors.blueColor, for: .normal)
-            leftButton.setTitle(Resources.Text.cancelButtonTitle, for: .normal)
-            leftButton.titleLabel?.font = UIFont.body
-            navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftButton)
-
-            let rightButton = UIButton(type: .system)
-            rightButton.setTitle(Resources.Text.saveButtonTitle, for: .normal)
-            rightButton.setTitleColor(Resources.Colors.tertiaryLabel, for: .disabled)
-            rightButton.titleLabel?.font = UIFont.headline
-            rightButton.addTarget(self, action: #selector(saveTodoItem), for: .touchUpInside)
-            navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightButton)
-        }
-
-    // MARK: - Load saved items
-
-    private func makeLoad() {
-        do {
-            try fileCache.loadFromJSON(file: Resources.Text.mainDataBaseFileName)
-        } catch {
-            print("Данных не обнаружено")
-        }
-
-        if !fileCache.todoItems.isEmpty {
-            currentTodoItem = fileCache.todoItems.first?.value
-        }
-    }
-
-    private func setValues() {
+    private func todoItemSetup() {
         if let currentTodoItem = currentTodoItem {
+            let color: UIColor? = Resources.Colors.primaryLabel
 
             textView.text = currentTodoItem.text
-            textView.textColor = Resources.Colors.primaryLabel
+            textView.textColor = color
             todoItemSettingsView.importanceSegmentControl.selectedSegmentIndex = currentTodoItem.importance.value
 
             if let dateDeadline = currentTodoItem.dateDeadline {
                 todoItemSettingsView.dateDeadlineButton.setAttributedTitle(
                     NSAttributedString(
                         string: dateDeadline.toString(),
-                        attributes: [
-                            NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .footnote)
-                        ]
-                    ),
+                        attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .footnote)]),
                     for: .normal
                 )
                 todoItemSettingsView.calendarView.date = dateDeadline
@@ -144,7 +102,48 @@ class TodoItemViewController: UIViewController {
         }
     }
 
-   // MARK: - objc Methods
+    func setupNavBar() {
+        title = Resources.Text.todoItemNavBarTitle
+
+        navigationController?.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.font: UIFont.headline ?? .systemFont(ofSize: 17),
+            NSAttributedString.Key.foregroundColor: Resources.Colors.primaryLabel
+        ]
+
+        addNavBarButtons()
+    }
+
+    private func addNavBarButtons() {
+        let leftButton = UIButton(type: .system)
+        leftButton.setTitleColor(Resources.Colors.blueColor, for: .normal)
+        leftButton.setTitle(Resources.Text.cancelButtonTitle, for: .normal)
+        leftButton.titleLabel?.font = UIFont.body
+        leftButton.addTarget(self, action: #selector(dismissTapped(sender:)), for: .touchUpInside)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftButton)
+
+        let rightButton = UIButton(type: .system)
+        rightButton.setTitle(Resources.Text.saveButtonTitle, for: .normal)
+        rightButton.setTitleColor(Resources.Colors.tertiaryLabel, for: .disabled)
+        rightButton.titleLabel?.font = UIFont.headline
+        rightButton.addTarget(self, action: #selector(saveTodoItem), for: .touchUpInside)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightButton)
+    }
+
+    func setUserInteractionDisabled() {
+        deleteButtonView.deleteButton.isHidden = true
+        textView.isUserInteractionEnabled = false
+        todoItemSettingsView.importanceSegmentControl.isUserInteractionEnabled = false
+        todoItemSettingsView.deadLineSwtich.isUserInteractionEnabled = false
+    }
+
+    // MARK: - Helper functions
+
+    // MARK: - objc Methods
+
+    @objc func dismissTapped(sender: UIBarButtonItem) {
+        print(1)
+        dismiss(animated: true)
+    }
 
     @objc func saveTodoItem(sender: UIBarButtonItem) {
         var dateDeadline: Date?
@@ -152,8 +151,8 @@ class TodoItemViewController: UIViewController {
             rawValue: todoItemSettingsView.importanceSegmentControl.selectedSegmentIndex
         ) ?? .normal
 
-        let deadLineSwtichIsOn = todoItemSettingsView.deadLineSwtich.isOn
-        if deadLineSwtichIsOn {
+        let isDeadLineSwtichOn = todoItemSettingsView.deadLineSwtich.isOn
+        if isDeadLineSwtichOn {
             dateDeadline = todoItemSettingsView.calendarView.date
         }
 
@@ -171,28 +170,23 @@ class TodoItemViewController: UIViewController {
             currentTodoItem = TodoItem(text: textView.text, importance: importance, dateDeadline: dateDeadline)
         }
 
-        fileCache.add(currentTodoItem!)
-        do {
-            try fileCache.saveToJSON(file: Resources.Text.mainDataBaseFileName)
-        } catch FileCacheErrors.directoryNotFound {
-            print(FileCacheErrors.directoryNotFound.rawValue)
-        } catch FileCacheErrors.JSONConvertationError {
-            print(FileCacheErrors.JSONConvertationError.rawValue)
-        } catch FileCacheErrors.pathToFileNotFound {
-            print(FileCacheErrors.pathToFileNotFound.rawValue)
-        } catch FileCacheErrors.writeFileError {
-            print(FileCacheErrors.writeFileError.rawValue)
-        } catch {
-            print("Другая ошибка при сохранении файла")
+        if let completion = dataCompletionHandler {
+            completion(currentTodoItem!)
         }
 
-        deleteButtonView.deleteButton.isEnabled = true
-
+        dismiss(animated: true)
         dismissKeyboard()
     }
 
-    @objc func switchChanged(sender: UISwitch) {
+    @objc func deleteTodoItem(sender: UIButton) {
+        if let completion = dataCompletionHandler {
+            completion(nil)
+        }
 
+        dismiss(animated: true)
+    }
+
+    @objc func switchChanged(sender: UISwitch) {
         if sender.isOn {
             let nextDayDate = Date.getNextDayDate()
             todoItemSettingsView.calendarView.date = nextDayDate
@@ -205,7 +199,6 @@ class TodoItemViewController: UIViewController {
                 ),
                 for: .normal
             )
-
             calendarViewAppereanceAnimation(dateSelected: false)
         } else {
             calendarViewDisappereanceAnimation(dateSelected: false)
@@ -230,38 +223,6 @@ class TodoItemViewController: UIViewController {
         } else {
             calendarViewAppereanceAnimation(dateSelected: false)
         }
-    }
-
-    @objc func deleteTodoItem(sender: UIButton) {
-
-        fileCache.remove(with: currentTodoItem!.id)
-        do {
-            try fileCache.saveToJSON(file: Resources.Text.mainDataBaseFileName)
-        } catch FileCacheErrors.directoryNotFound {
-            print(FileCacheErrors.directoryNotFound.rawValue)
-        } catch FileCacheErrors.JSONConvertationError {
-            print(FileCacheErrors.JSONConvertationError.rawValue)
-        } catch FileCacheErrors.pathToFileNotFound {
-            print(FileCacheErrors.pathToFileNotFound.rawValue)
-        } catch FileCacheErrors.writeFileError {
-            print(FileCacheErrors.writeFileError.rawValue)
-        } catch {
-            print("Другая ошибка при сохранении файла, когда элемент удален")
-        }
-
-        currentTodoItem = nil
-
-        textView.text = Resources.Text.placeholderTitleForTextView
-        textView.textColor = Resources.Colors.tertiaryLabel
-        todoItemSettingsView.importanceSegmentControl.selectedSegmentIndex = 1
-
-        todoItemSettingsView.dateDeadlineButton.isHidden = true
-        todoItemSettingsView.calendarView.isHidden = true
-        todoItemSettingsView.secondSeparator.isHidden = true
-        todoItemSettingsView.deadLineSwtich.isOn = false
-        deleteButtonView.deleteButton.isEnabled = false
-        navigationItem.rightBarButtonItem?.isEnabled = false
-
     }
 
     // MARK: - Animations

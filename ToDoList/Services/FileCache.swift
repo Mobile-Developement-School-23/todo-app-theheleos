@@ -7,6 +7,10 @@ import TodoItem
 final class FileCache {
     private(set) var todoItems: [String: TodoItem] = [:]
 
+    func returnTodoItemArray() -> [TodoItem] {
+        Array(todoItems.values)
+    }
+
     func add(_ item: TodoItem) {
         DDLogInfo("Added new ToDoItem with ID: \(item.id)")
         todoItems[item.id] = item
@@ -75,6 +79,15 @@ extension FileCache {
             DDLogInfo("Saved ToDoItems to JSON file: \(pathWithFileName)")
         } catch {
             throw FileCacheErrors.pathToFileNotFound
+        }
+    }
+
+    func saveArrayToJSON(todoItems: [TodoItem], to file: String) {
+        self.todoItems = Dictionary(uniqueKeysWithValues: todoItems.map({($0.id, $0)}))
+        do {
+            try self.saveToJSON(file: file)
+        } catch {
+            print("Oшибка при сохранении файла")
         }
     }
 }
