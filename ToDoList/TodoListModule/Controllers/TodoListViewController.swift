@@ -2,7 +2,7 @@ import UIKit
 
 class TodoListViewController: UIViewController {
 
-    private let headerView = HeaderView(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
+    let headerView = HeaderView(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
     lazy var todoListTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.tableHeaderView = headerView
@@ -105,14 +105,14 @@ class TodoListViewController: UIViewController {
         doneTodoItems = []
     }
 
-    private func makeSave() {
+    func makeSave() {
         var todoItemsToSave = todoItems + doneTodoItems
         todoItemsToSave.sort(by: { $0.dateСreation > $1.dateСreation })
         todoItemsToSave.removeLast()
         fileCache.saveArrayToJSON(todoItems: todoItemsToSave, to: Resources.Text.mainDataBaseFileName)
     }
 
-    private func doneItemAction(_ index: Int) {
+    func doneItemAction(_ index: Int) {
         todoItems[index].isDone = !todoItems[index].isDone
 
         if headerView.areDoneCellsHidden {
@@ -269,7 +269,7 @@ extension TodoListViewController {
             todoListTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 
             plusButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            plusButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            plusButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
 }

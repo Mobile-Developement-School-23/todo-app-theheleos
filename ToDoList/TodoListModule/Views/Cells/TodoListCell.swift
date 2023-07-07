@@ -104,11 +104,8 @@ class TodoListCell: UITableViewCell {
                 string: "Новое",
                 attributes: [NSAttributedString.Key.strikethroughStyle: 0]
             )
+            [deadlineStack, chevroneButton, checkMarkButton, importanceImageView].forEach { $0.isHidden = true }
             itemTextLabel.textColor = .secondaryLabel
-            deadlineStack.isHidden = true
-            chevroneButton.isHidden = true
-            checkMarkButton.isHidden = true
-            importanceImageView.isHidden = true
         } else {
             itemTextLabel.attributedText = NSAttributedString(string: item.text)
             itemTextLabel.textColor = Resources.Colors.primaryLabel
@@ -117,20 +114,17 @@ class TodoListCell: UITableViewCell {
             case .important:
                 importanceImageView.image = Resources.Images.highImportanceIcon
                 checkMarkButton.setImage(
-                    Resources.Images.checkHighImportanceMarkImage,
-                    for: .normal
+                    Resources.Images.checkHighImportanceMarkImage, for: .normal
                 )
             case .normal:
                 importanceImageView.isHidden = true
                 checkMarkButton.setImage(
-                    Resources.Images.checkMarkImage,
-                    for: .normal
+                    Resources.Images.checkMarkImage, for: .normal
                 )
             case .unimportant:
                 importanceImageView.image = Resources.Images.lowImportanceIcon
                 checkMarkButton.setImage(
-                    Resources.Images.checkMarkImage,
-                    for: .normal
+                    Resources.Images.checkMarkImage, for: .normal
                 )
             }
 
@@ -141,9 +135,7 @@ class TodoListCell: UITableViewCell {
                 deadlineStack.isHidden = true
             }
 
-            chevroneButton.isHidden = false
-            checkMarkButton.isHidden = false
-            importanceImageView.isHidden = false
+            [chevroneButton, checkMarkButton, importanceImageView].forEach { $0.isHidden = false }
 
             if item.isDone {
                 checkMarkButton.setImage(

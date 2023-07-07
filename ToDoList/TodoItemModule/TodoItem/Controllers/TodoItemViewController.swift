@@ -129,6 +129,13 @@ class TodoItemViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightButton)
     }
 
+    func setUserInteractionDisabled() {
+        deleteButtonView.deleteButton.isHidden = true
+        textView.isUserInteractionEnabled = false
+        todoItemSettingsView.importanceSegmentControl.isUserInteractionEnabled = false
+        todoItemSettingsView.deadLineSwtich.isUserInteractionEnabled = false
+    }
+
     // MARK: - Helper functions
 
     // MARK: - objc Methods
