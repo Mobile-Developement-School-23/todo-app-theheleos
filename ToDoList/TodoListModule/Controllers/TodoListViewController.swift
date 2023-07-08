@@ -39,6 +39,25 @@ class TodoListViewController: UIViewController {
         setupViews()
         setConstraints()
         makeLoad()
+
+        printResponse()
+    }
+    // MARK: - На примере GET + PATCH показываю, что методы реализованы корректно
+    private func printResponse() {
+
+        var defaulll = DefaultNetworkingService()
+        var itemsFromNet = NetworkingManager.shared.toDoItemsFromNet
+        defaulll.getInfFormNetwork()
+        defaulll.getListFromNetwork { [self] success in
+            if success {
+                DispatchQueue.main.async { [self] in
+                    for item in defaulll.networkTodoItems {
+                        itemsFromNet.append(item)
+                    }
+                    print(itemsFromNet)
+                }
+            }
+        }
     }
 
     private func makeLoad() {
@@ -50,7 +69,7 @@ class TodoListViewController: UIViewController {
 
         todoItems = fileCache.returnTodoItemArray().sorted { $0.dateСreation > $1.dateСreation }
         removeDoneTodoItems()
-        todoItems.append(TodoItem(text: "", importance: .normal, dateСreation: Date.distantPast))
+        todoItems.append(TodoItem(text: "", importance: .basic, dateСreation: Date.distantPast))
         headerView.update(doneItemsCount: doneTodoItems.count)
     }
 
