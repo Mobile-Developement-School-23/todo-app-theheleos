@@ -1,95 +1,360 @@
 import Foundation
+import UIKit
 
-protocol NetworkingServiceProtocol {
-    var httpResponse: HTTPResponse? { get set }
-}
+// switlint:disable type_body_length
 
-class DefaultNetworkService: NetworkingServiceProtocol {
-    var httpResponse: HTTPResponse?
+class DefaultNetworkingService {
+    private let networkingManager = NetworkingManager.shared
+    var networkTodoItems: [TodoItem] = []
+    let urlSession: URLSession = URLSession(configuration: .default)
 
-    // куда-то перенести
-    static var revision: Int {
-        get {
-            UserDefaults.standard.integer(forKey: "revision")
+    @discardableResult
+    func getInfFormNetwork() -> Bool {
+        var isSuccess = false
+
+        let group = DispatchGroup()
+
+        group.enter()
+        DispatchQueue.global().async {
+            self.getItem { result in
+                defer {
+                    group.leave()
+                }
+                switch result {
+                case .success:
+                    self.networkingManager.isDirty = false
+                    isSuccess = true
+                case .failure(let error):
+                    print(error)
+                    self.networkingManager.isDirty = true
+                }
+            }
         }
-        set {
-            UserDefaults.standard.setValue(newValue, forKey: "revision")
+        group.wait()
+
+        return isSuccess
+    }
+
+    func getListFromNetwork(completion: @escaping (Bool) -> Void) {
+        patch { result in
+            switch result {
+            case .success:
+                DispatchQueue.main.async {
+                    completion(true)
+                    self.networkingManager.isDirty = false
+                }
+            case .failure(let error):
+                print(error)
+                DispatchQueue.main.async {
+                    completion(false)
+                    self.networkingManager.isDirty = true
+                }
+            }
         }
     }
 
-    private var header = [
-        "Authorization": "Bearer auricled"
-    ]
+    func sendNewItemToNetwork(item: TodoItem, completion: @escaping (Bool) -> Void) {
+        post(item: item) { result in
+            switch result {
+            case .success:
+                DispatchQueue.main.async {
+                    completion(true)
+                    self.networkingManager.isDirty = false
+                }
+            case .failure(let error):
+                print(error)
+                DispatchQueue.main.async {
+                    completion(false)
+                    self.networkingManager.isDirty = true
+                }
+            }
+        }
 
-    private func configureResponse(selectedResponse: MethodHttp) -> HTTPResponse {
-        header["X-Last-Known-Revision"] = String(DefaultNetworkService.revision)
-        switch selectedResponse {
-        case .get:
-            return HTTPResponse(header: header)
-        case .post(let item):
-            return HTTPResponse(
-                httpMethod: .post(item),
-                header: header,
-                httpBody: try? JSONSerialization.data(withJSONObject: ["element": item.json], options: [])
-            )
+    }
 
-        case .patch(let items):
-            return HTTPResponse(
-                httpMethod: .patch(items),
-                header: header,
-                httpBody: try? JSONSerialization.data(withJSONObject: ["list": items.map { $0.json }])
-            )
-        case .delete(let id):
-            return HTTPResponse(
-                httpMethod: .delete(id),
-                path: "/\(id)",
-                header: header
-            )
-        case .put(let id, let item):
-            return HTTPResponse(
-                httpMethod: .put(id, item),
-                path: "/\(id)",
-                header: header,
-                httpBody: try? JSONSerialization.data(withJSONObject: ["element": item.json], options: [])
-            )
-        case .getElement(let id):
-            return HTTPResponse(
-                httpMethod: .getElement(id),
-                path: "/\(id)",
-                header: header
-            )
+    func removeItemFromNetwork(id: String, completion: @escaping (Bool) -> Void) {
+        delete(withId: id) { result in
+            switch result {
+            case .success:
+                DispatchQueue.main.async {
+                    completion(true)
+                    self.networkingManager.isDirty = false
+                }
+            case .failure(let error):
+                print(error)
+                DispatchQueue.main.async {
+                    completion(false)
+                    self.networkingManager.isDirty = true
+                }
+            }
+        }
+
+    }
+
+    func updateItemInfo(id: String, item: TodoItem, completion: @escaping (Bool) -> Void) {
+        put(withId: id, newItem: item) { result in
+            switch result {
+            case .success:
+                DispatchQueue.main.async {
+                    completion(true)
+                    self.networkingManager.isDirty = false
+                }
+            case .failure(let error):
+                print(error)
+                DispatchQueue.main.async {
+                    completion(false)
+                    self.networkingManager.isDirty = true
+                }
+            }
         }
     }
 
-    func makeRequest(with response: MethodHttp = .get, completion: @escaping (Result<[TodoItem], Error>) -> Void) {
-        self.httpResponse = configureResponse(selectedResponse: response)
-        httpResponse?.updateRevision = { value in
-            DefaultNetworkService.revision = value
+    // MARK: - privat
+
+   private func getItem(completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let url = URL(string: "\(URLInfo.baseURL)") else {
+            completion(.failure(NetworkingError.invalidURL))
+            return
         }
-        httpResponse?.getResponse(completion: completion)
+
+        var request = URLRequest(url: url)
+        request.allHTTPHeaderFields = [
+            "Authorization": "Bearer \(networkingManager.token)"
+        ]
+
+        let task = urlSession.dataTask(with: request) { (data, _, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            guard let data = data else {
+                completion(.failure(NetworkingError.invalidData))
+                return
+            }
+
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: [])
+                guard let result = json as? [String: Any] else {
+                    completion(.failure(NetworkingError.invalidResponse))
+                    return
+                }
+
+                if let status = result[NetworkKeys.status] as? String, status == "ok" {
+                    if let revision = result[NetworkKeys.revision] as? Int {
+                        self.networkingManager.revision = revision
+                    }
+                    completion(.success(()))
+                } else {
+                    completion(.failure(NetworkingError.invalidResponse))
+                }
+            } catch {
+                completion(.failure(error))
+            }
+        }
+
+        task.resume()
+    }
+
+  private func patch(completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let url = URL(string: "\(URLInfo.baseURL)") else {
+            completion(.failure(NetworkingError.invalidURL))
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.allHTTPHeaderFields = [
+            "Authorization": "Bearer \(networkingManager.token)",
+            "X-Last-Known-Revision": "\(networkingManager.revision)"
+        ]
+
+        let task = urlSession.dataTask(with: request) { (data, _, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            guard let data = data else {
+                completion(.failure(NetworkingError.invalidData))
+                return
+            }
+
+            do {
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .secondsSince1970
+                let netList = try decoder.decode(NetworkList.self, from: data)
+                if netList.status == "ok" {
+                    self.networkTodoItems = netList.list.map { netToDoItem in
+                        return TodoItem(
+                            id: netToDoItem.id,
+                            text: netToDoItem.text,
+                            importance: Importance(rawValue: netToDoItem.importance) ?? .low,
+                            dateDeadline: netToDoItem.dateDeadline.map { Date(timeIntervalSince1970: TimeInterval($0))},
+                            isDone: netToDoItem.isDone,
+                            dateСreation: Date(timeIntervalSince1970: TimeInterval(netToDoItem.dateCreation)),
+                            dateChanging: Date(timeIntervalSince1970: TimeInterval(netToDoItem.dateChanging))
+                        )
+
+                    }
+                    self.networkingManager.revision = netList.revision
+                    completion(.success(()))
+                } else {
+                    completion(.failure(NetworkingError.invalidResponse))
+                }
+            } catch {
+                completion(.failure(error))
+            }
+        }
+
+        task.resume()
+    }
+
+   private func post(item: TodoItem, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let url = URL(string: "\(URLInfo.baseURL)/") else {
+            completion(.failure(NetworkingError.invalidURL))
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+
+        if let jsonData = createJSONElement(
+            from: NetworkItem.init(from: item),
+            revision: NetworkingManager.shared.revision
+        ) {
+                request.httpBody = jsonData
+            } else {
+                completion(.failure(NetworkingError.jsonSerializationFailed))
+                return
+            }
+
+        request.allHTTPHeaderFields = [
+            "Authorization": "Bearer \(networkingManager.token)",
+            "X-Last-Known-Revision": "\(NetworkingManager.shared.revision)"
+        ]
+
+        let task = urlSession.dataTask(with: request) { (data, _, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            guard data != nil else {
+                completion(.failure(NetworkingError.invalidData))
+                return
+            }
+
+            completion(.success(()))
+        }
+
+        task.resume()
+    }
+
+  private func delete(withId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let url = URL(string: "\(URLInfo.baseURL)/" + withId) else {
+            completion(.failure(NetworkingError.invalidURL))
+            return
+        }
+        print(networkingManager.revision)
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.allHTTPHeaderFields = [
+            "Authorization": "Bearer \(networkingManager.token)",
+            "X-Last-Known-Revision": "\(networkingManager.revision)"
+        ]
+
+            let task = urlSession.dataTask(with: request) { (_, response, error) in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+
+                if let httpResponse = response as? HTTPURLResponse {
+                    if httpResponse.statusCode == 200 {
+                        self.networkingManager.revision += 1
+                        completion(.success(()))
+                    } else {
+                        let error = NSError(domain: "NetworkingError", code: httpResponse.statusCode, userInfo: nil)
+                        completion(.failure(error))
+                    }
+                } else {
+                    completion(.failure(NetworkingError.invalidResponse))
+                }
+            }
+
+            task.resume()
+        }
+
+  private func put(withId id: String, newItem: TodoItem, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let url = URL(string: "\(URLInfo.baseURL)/\(id)") else {
+            completion(.failure(NetworkingError.invalidURL))
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+
+        if let jsonData = createJSONElement(
+            from: NetworkItem(from: newItem),
+            revision: NetworkingManager.shared.revision
+        ) {
+            request.httpBody = jsonData
+        } else {
+            completion(.failure(NetworkingError.jsonSerializationFailed))
+            return
+        }
+
+        request.allHTTPHeaderFields = [
+            "Authorization": "Bearer \(networkingManager.token)",
+            "X-Last-Known-Revision": "\(NetworkingManager.shared.revision)"
+        ]
+
+        let task = urlSession.dataTask(with: request) { (_, response, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    self.networkingManager.revision += 1
+                    completion(.success(()))
+                } else {
+                    let error = NSError(domain: "NetworkingError", code: httpResponse.statusCode, userInfo: nil)
+                    completion(.failure(error))
+                }
+            } else {
+                completion(.failure(NetworkingError.invalidResponse))
+            }
+        }
+
+        task.resume()
+    }
+
+  private func createJSONElement(from netToDoItem: NetworkItem, revision: Int) -> Data? {
+        let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+
+        do {
+            let jsonData = try encoder.encode(netToDoItem)
+            let json = try JSONSerialization.jsonObject(with: jsonData, options: [])
+            let jsonObject: [String: Any] = [
+                "status": "ok",
+                "element": json,
+                "revision": revision
+            ]
+            return try JSONSerialization.data(withJSONObject: jsonObject, options: [.prettyPrinted])
+        } catch {
+            print("Error creating JSON: \(error)")
+            return nil
+        }
+    }
+
+   private enum NetworkingError: Error {
+        case invalidURL
+        case invalidData
+        case invalidResponse
+        case jsonSerializationFailed
     }
 }
-
-enum MethodHttp {
-    case get
-    case post(TodoItem)
-    case patch([TodoItem])
-    case delete(String)
-    case put(String, TodoItem)
-    case getElement(String)
-
-    var rawValue: String {
-        switch self {
-        case .get: return "GET"
-        case .post: return "POST"
-        case .patch: return "PATCH"
-        case .delete: return "DELETE"
-        case .put: return "PUT"
-        case .getElement: return "GET"
-        }
-    }
-}
-
-enum NetworkingError: Error {
-    case incorrectURL, invalidData, decoderError
-}
+// switlint:enable type_body_length
