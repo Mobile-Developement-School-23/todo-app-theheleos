@@ -149,7 +149,7 @@ class TodoItemViewController: UIViewController {
         var dateDeadline: Date?
         let importance = Importance(
             rawValue: todoItemSettingsView.importanceSegmentControl.selectedSegmentIndex
-        ) ?? .normal
+        ) ?? .basic
 
         let isDeadLineSwtichOn = todoItemSettingsView.deadLineSwtich.isOn
         if isDeadLineSwtichOn {

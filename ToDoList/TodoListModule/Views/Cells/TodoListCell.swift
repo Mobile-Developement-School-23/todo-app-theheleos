@@ -117,12 +117,12 @@ class TodoListCell: UITableViewCell {
                 checkMarkButton.setImage(
                     Resources.Images.checkHighImportanceMarkImage, for: .normal
                 )
-            case .normal:
+            case .basic:
                 importanceImageView.isHidden = true
                 checkMarkButton.setImage(
                     Resources.Images.checkMarkImage, for: .normal
                 )
-            case .unimportant:
+            case .low:
                 importanceImageView.image = Resources.Images.lowImportanceIcon
 
                 checkMarkButton.setImage(

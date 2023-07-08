@@ -34,7 +34,7 @@ extension TodoItem {
     public static func parse(JSON: Any) -> TodoItem? {
         guard let json = JSON as? [String: Any] else { return nil }
 
-        let importance = (json[JSONKeys.importance.rawValue] as? String).flatMap(Importance.init(rawValue: )) ?? .normal
+        let importance = (json[JSONKeys.importance.rawValue] as? String).flatMap(Importance.init(rawValue: )) ?? .basic
         let isDone = json[JSONKeys.isDone.rawValue] as? Bool ?? false
         let dateDeadline = (json[JSONKeys.dateDeadline.rawValue] as? Double).flatMap { Date(timeIntervalSince1970: $0) }
         let dateChanging = (json[JSONKeys.dateChanging.rawValue] as? Double).flatMap { Date(timeIntervalSince1970: $0) }
@@ -62,7 +62,7 @@ extension TodoItem {
 
         jsonDict[JSONKeys.id.rawValue] = self.id
         jsonDict[JSONKeys.text.rawValue] = self.text
-        if self.importance != .normal {
+        if self.importance != .basic {
             jsonDict[JSONKeys.importance.rawValue] = self.importance.rawValue
         }
         if let dateDeadline = self.dateDeadline {
@@ -84,7 +84,7 @@ extension TodoItem {
 
         let id = String(columns[0])
         let text = String(columns[1])
-        let importance = Importance(rawValue: columns[2]) ?? .normal
+        let importance = Importance(rawValue: columns[2]) ?? .basic
         let isDone = Bool(columns[4]) ?? false
         let dateDeadline = Double(columns[3]).flatMap { Date(timeIntervalSince1970: $0) }
         let dateChanging = Double(columns[6]).flatMap { Date(timeIntervalSince1970: $0) }
@@ -111,7 +111,7 @@ extension TodoItem {
 
         csvDataArray.append(self.id)
         csvDataArray.append(self.text)
-        if self.importance != .normal {
+        if self.importance != .basic {
             csvDataArray.append(self.importance.rawValue)
         } else {
             csvDataArray.append("")
@@ -137,16 +137,16 @@ extension TodoItem {
 // MARK: - Enum
 
 public enum Importance: String {
-    case unimportant
-    case normal
+    case low
+    case basic
     case important
 
     public init?(rawValue: Int) {
         switch rawValue {
         case 0:
-            self = .unimportant
+            self = .low
         case 1:
-            self = .normal
+            self = .basic
         case 2:
             self = .important
         default:
@@ -156,9 +156,9 @@ public enum Importance: String {
 
     public var value: Int {
         switch self {
-        case .unimportant:
+        case .low:
             return 0
-        case .normal:
+        case .basic:
             return 1
         case .important:
             return 2

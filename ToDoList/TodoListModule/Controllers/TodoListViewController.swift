@@ -50,7 +50,7 @@ class TodoListViewController: UIViewController {
 
         todoItems = fileCache.returnTodoItemArray().sorted { $0.dateСreation > $1.dateСreation }
         removeDoneTodoItems()
-        todoItems.append(TodoItem(text: "", importance: .normal, dateСreation: Date.distantPast))
+        todoItems.append(TodoItem(text: "", importance: .basic, dateСreation: Date.distantPast))
         headerView.update(doneItemsCount: doneTodoItems.count)
     }
 
