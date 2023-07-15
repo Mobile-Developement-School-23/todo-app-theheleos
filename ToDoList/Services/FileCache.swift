@@ -4,7 +4,7 @@ import TodoItem
 
 // MARK: - Class
 
-final class FileCache {
+final class FileCacheDisabled {
     private(set) var todoItems: [String: TodoItem] = [:]
 
     func returnTodoItemArray() -> [TodoItem] {
@@ -31,7 +31,7 @@ final class FileCache {
 
 // MARK: - Extensions
 
-extension FileCache {
+extension FileCacheDisabled {
     func loadFromJSON(file name: String) throws {
         guard let documentDirectory = FileManager.default.urls(
             for: .documentDirectory,
@@ -92,7 +92,7 @@ extension FileCache {
     }
 }
 
-extension FileCache {
+extension FileCacheDisabled {
     func loadFromCSV(file name: String) throws {
         guard let documentDirectory = FileManager.default.urls(
             for: .documentDirectory,

@@ -29,7 +29,7 @@ class TodoListViewController: UIViewController {
         return button
     }()
 
-    let fileCache = FileCache()
+    let coreData = FileCache()
     var todoItems = [TodoItem]()
     var doneTodoItems = [TodoItem]()
 
@@ -40,7 +40,7 @@ class TodoListViewController: UIViewController {
         setConstraints()
         makeLoad()
 
-        printResponse()
+        //printResponse()
     }
     // MARK: - На примере GET + PATCH показываю, что методы реализованы корректно
     private func printResponse() {
@@ -61,13 +61,9 @@ class TodoListViewController: UIViewController {
     }
 
     private func makeLoad() {
-        do {
-            try fileCache.loadFromJSON(file: Resources.Text.mainDataBaseFileName)
-        } catch {
-            print("Ошибка загрузки данных")
-        }
+        coreData.load()
 
-        todoItems = fileCache.returnTodoItemArray().sorted { $0.dateСreation > $1.dateСreation }
+        todoItems = coreData.todoItems.sorted { $0.dateСreation > $1.dateСreation }
         removeDoneTodoItems()
         todoItems.append(TodoItem(text: "", importance: .basic, dateСreation: Date.distantPast))
         headerView.update(doneItemsCount: doneTodoItems.count)
@@ -127,7 +123,9 @@ class TodoListViewController: UIViewController {
         var todoItemsToSave = todoItems + doneTodoItems
         todoItemsToSave.sort(by: { $0.dateСreation > $1.dateСreation })
         todoItemsToSave.removeLast()
-        fileCache.saveArrayToJSON(todoItems: todoItemsToSave, to: Resources.Text.mainDataBaseFileName)
+        //fileCache.saveArrayToJSON(todoItems: todoItemsToSave, to: Resources.Text.mainDataBaseFileName)
+        coreData.save(items: todoItemsToSave)
+        print("SAVE", coreData.todoItems)
     }
 
     func doneItemAction(_ index: Int) {
@@ -148,6 +146,7 @@ class TodoListViewController: UIViewController {
     @objc private func checkMarkButtonTap(sender: UIButton) {
         doneItemAction(sender.tag)
         makeSave()
+
         todoListTableView.reloadData()
     }
 
