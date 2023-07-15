@@ -23,6 +23,9 @@
 		7840C2482A33B4ED00EEA3AF /* ToDoListUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7840C2472A33B4ED00EEA3AF /* ToDoListUITestsLaunchTests.swift */; };
 		7840C2612A33D50900EEA3AF /* FileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7840C2602A33D50900EEA3AF /* FileCache.swift */; };
 		7840C27A2A350A4600EEA3AF /* ToDoItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7840C2792A350A4600EEA3AF /* ToDoItemTests.swift */; };
+		B326AF192A621922007AA2A0 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B326AF172A621922007AA2A0 /* CoreDataModel.xcdatamodeld */; };
+		B326AF1B2A6219A4007AA2A0 /* CoreDataSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B326AF1A2A6219A4007AA2A0 /* CoreDataSettings.swift */; };
+		B326AF1D2A621A0B007AA2A0 /* DataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B326AF1C2A621A0B007AA2A0 /* DataBase.swift */; };
 		B3759DFA2A5445AE00AF90C9 /* TodoItem in Frameworks */ = {isa = PBXBuildFile; productRef = B3759DF92A5445AE00AF90C9 /* TodoItem */; };
 		B3759E052A545C2B00AF90C9 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3759E042A545C2B00AF90C9 /* TodoListViewController.swift */; };
 		B3759E092A546E0400AF90C9 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3759E082A546E0400AF90C9 /* HeaderView.swift */; };
@@ -46,6 +49,8 @@
 		B3EDED5D2A590DA100243499 /* NetTodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EDED5C2A590DA100243499 /* NetTodoItem.swift */; };
 		B3EDED5F2A5911F900243499 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EDED5E2A5911F900243499 /* URL.swift */; };
 		B3EDED622A5917B500243499 /* NetworkingServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EDED612A5917B500243499 /* NetworkingServiceProtocol.swift */; };
+		B3F653E32A623E7C007DFECD /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = B3F653E22A623E7C007DFECD /* SQLite */; };
+		B3F653E52A62407B007DFECD /* sqlTodoBase.db in Resources */ = {isa = PBXBuildFile; fileRef = B3F653E42A62407B007DFECD /* sqlTodoBase.db */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +96,9 @@
 		7840C2472A33B4ED00EEA3AF /* ToDoListUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		7840C2602A33D50900EEA3AF /* FileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCache.swift; sourceTree = "<group>"; };
 		7840C2792A350A4600EEA3AF /* ToDoItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItemTests.swift; sourceTree = "<group>"; };
+		B326AF182A621922007AA2A0 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
+		B326AF1A2A6219A4007AA2A0 /* CoreDataSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataSettings.swift; sourceTree = "<group>"; };
+		B326AF1C2A621A0B007AA2A0 /* DataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBase.swift; sourceTree = "<group>"; };
 		B3759E042A545C2B00AF90C9 /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
 		B3759E082A546E0400AF90C9 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		B3759E5B2A56CD2B00AF90C9 /* TodoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListCell.swift; sourceTree = "<group>"; };
@@ -110,6 +118,7 @@
 		B3EDED5C2A590DA100243499 /* NetTodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetTodoItem.swift; sourceTree = "<group>"; };
 		B3EDED5E2A5911F900243499 /* URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 		B3EDED612A5917B500243499 /* NetworkingServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingServiceProtocol.swift; sourceTree = "<group>"; };
+		B3F653E42A62407B007DFECD /* sqlTodoBase.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = sqlTodoBase.db; sourceTree = "<group>"; };
 		DF10DD2BB5531E1B350DF4C4 /* Pods-ToDoList-ToDoListUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoList-ToDoListUITests.debug.xcconfig"; path = "Target Support Files/Pods-ToDoList-ToDoListUITests/Pods-ToDoList-ToDoListUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -118,6 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3F653E32A623E7C007DFECD /* SQLite in Frameworks */,
 				B37AA0842A53EEA50025B51C /* CocoaLumberjackSwift in Frameworks */,
 				B3759DFA2A5445AE00AF90C9 /* TodoItem in Frameworks */,
 				B37AA0862A53EEA50025B51C /* CocoaLumberjackSwiftLogBackend in Frameworks */,
@@ -225,8 +235,8 @@
 				7840C2552A33B67100EEA3AF /* SupportingFiles */,
 				B37AA08B2A5426D30025B51C /* Resources */,
 				B3759E692A585CA000AF90C9 /* Networking */,
-				B37AA0872A53F0240025B51C /* Logger.swift */,
-				B3759E5E2A57563D00AF90C9 /* TodoItem.swift */,
+				B3F653E72A62491C007DFECD /* DataBase */,
+				B3F653E62A6248F8007DFECD /* Logger */,
 			);
 			path = ToDoList;
 			sourceTree = "<group>";
@@ -271,6 +281,7 @@
 		7840C2562A33B6CC00EEA3AF /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B3759E5E2A57563D00AF90C9 /* TodoItem.swift */,
 				B3765EA32A4E0F2A00FE50D1 /* NavBarElements.swift */,
 			);
 			path = Models;
@@ -377,6 +388,25 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		B3F653E62A6248F8007DFECD /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				B37AA0872A53F0240025B51C /* Logger.swift */,
+			);
+			path = Logger;
+			sourceTree = "<group>";
+		};
+		B3F653E72A62491C007DFECD /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+				B326AF172A621922007AA2A0 /* CoreDataModel.xcdatamodeld */,
+				B326AF1A2A6219A4007AA2A0 /* CoreDataSettings.swift */,
+				B326AF1C2A621A0B007AA2A0 /* DataBase.swift */,
+				B3F653E42A62407B007DFECD /* sqlTodoBase.db */,
+			);
+			path = DataBase;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -400,6 +430,7 @@
 				B37AA0832A53EEA50025B51C /* CocoaLumberjackSwift */,
 				B37AA0852A53EEA50025B51C /* CocoaLumberjackSwiftLogBackend */,
 				B3759DF92A5445AE00AF90C9 /* TodoItem */,
+				B3F653E22A623E7C007DFECD /* SQLite */,
 			);
 			productName = ToDoList;
 			productReference = 7840C2212A33B4EC00EEA3AF /* ToDoList.app */;
@@ -481,6 +512,7 @@
 			packageReferences = (
 				B37AA0802A53EEA50025B51C /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
 				B3759DF82A5445AE00AF90C9 /* XCRemoteSwiftPackageReference "TodoItemRemoteLibrary" */,
+				B3F653E12A623E7C007DFECD /* XCRemoteSwiftPackageReference "SQLite.swift" */,
 			);
 			productRefGroup = 7840C2222A33B4EC00EEA3AF /* Products */;
 			projectDirPath = "";
@@ -498,6 +530,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3F653E52A62407B007DFECD /* sqlTodoBase.db in Resources */,
 				782D5AD72A467EDB00777655 /* SF-Pro-Display-Semibold.otf in Resources */,
 				7840C2312A33B4ED00EEA3AF /* LaunchScreen.storyboard in Resources */,
 				782D5AD82A467EDB00777655 /* SF-ProText-Regular.ttf in Resources */,
@@ -626,9 +659,12 @@
 				B3759E612A57BE3700AF90C9 /* CustomTransition.swift in Sources */,
 				782D5AE32A467F3E00777655 /* UIViewController+Extensions.swift in Sources */,
 				B3765EA02A4DFCC400FE50D1 /* Resources.swift in Sources */,
+				B326AF1D2A621A0B007AA2A0 /* DataBase.swift in Sources */,
 				782D5AE42A467F3E00777655 /* UIFont+Extensions.swift in Sources */,
 				B3765EAA2A4E147500FE50D1 /* TodoItemSettingsView.swift in Sources */,
+				B326AF1B2A6219A4007AA2A0 /* CoreDataSettings.swift in Sources */,
 				B3EDED5B2A590D5900243499 /* NetworkManager.swift in Sources */,
+				B326AF192A621922007AA2A0 /* CoreDataModel.xcdatamodeld in Sources */,
 				B3759E052A545C2B00AF90C9 /* TodoListViewController.swift in Sources */,
 				B3759E5F2A57563D00AF90C9 /* TodoItem.swift in Sources */,
 				B3EDED5F2A5911F900243499 /* URL.swift in Sources */,
@@ -1018,6 +1054,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		B3F653E12A623E7C007DFECD /* XCRemoteSwiftPackageReference "SQLite.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stephencelis/SQLite.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.14.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1041,7 +1085,25 @@
 			package = B37AA0802A53EEA50025B51C /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
 			productName = CocoaLumberjackSwiftLogBackend;
 		};
+		B3F653E22A623E7C007DFECD /* SQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B3F653E12A623E7C007DFECD /* XCRemoteSwiftPackageReference "SQLite.swift" */;
+			productName = SQLite;
+		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		B326AF172A621922007AA2A0 /* CoreDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B326AF182A621922007AA2A0 /* CoreDataModel.xcdatamodel */,
+			);
+			currentVersion = B326AF182A621922007AA2A0 /* CoreDataModel.xcdatamodel */;
+			path = CoreDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 7840C2192A33B4EC00EEA3AF /* Project object */;
 }

@@ -23,7 +23,7 @@ class TodoItemViewController: UIViewController {
     private let deleteButtonView = DeleteButtonView()
 
     private var currentTodoItem: TodoItem?
-    private let fileCache = FileCache()
+    private let coreDataBase = FileCache()
     var dataCompletionHandler: ((TodoItem?) -> Void)?
 
     // MARK: - Initializators
