@@ -154,6 +154,19 @@ public enum Importance: String {
         }
     }
 
+    public init?(rawValue: Int64) {
+        switch rawValue {
+        case 0:
+            self = .low
+        case 1:
+            self = .basic
+        case 2:
+            self = .important
+        default:
+            return nil
+        }
+    }
+
     public var value: Int {
         switch self {
         case .low:
